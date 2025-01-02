@@ -7,4 +7,7 @@ A fun game teaching children how to find the shortest path in a graph using a cu
 3. Try again and improve your score!
 
 ## Installation
-Clone the repository and run `main.py` to start the game.
+Clone the repository and run this to start the game.
+   ```bash
+    python ./tests/launch_game.py
+   ```
