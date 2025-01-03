@@ -8,7 +8,6 @@ COLORS = [
     (1, 1, 0),      # Bright Yellow
     (1, 0.5, 0),      # Orange
     (1, 0, 0),        # Bright Red
-    (0, 1, 1),      # Cyan (for selected paths)
 ]
 
 class MyGraph:
