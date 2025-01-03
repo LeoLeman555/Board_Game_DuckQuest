@@ -1,8 +1,8 @@
-import tkinter as tk
-from tkinter import messagebox
 import networkx as nx
+import tkinter as tk
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from tkinter import messagebox
 
 class GraphInterface:
     def __init__(self, root: tk.Tk, graph):
@@ -10,9 +10,9 @@ class GraphInterface:
         self.graph = graph
 
         self.root.title("DuckQuest - Game")
-
-        # Global styles
         self.root.configure(bg='#282C34')  # Dark background
+
+        # Styles
         self.button_style = {
             'bg': '#61AFEF',
             'fg': 'white',
@@ -22,35 +22,23 @@ class GraphInterface:
             'activebackground': '#528AAE',
         }
 
+        # Button commands
+        button_commands = [
+            ("Start a graph", self.restart_game),
+            ("Reset selection", self.reset_selection),
+            ("Check your path", self.check_shortest_path),
+            ("Display shortest path", self.toggle_shortest_path),
+            ("Quit", self.quit_game),
+        ]
+
         # Container for buttons
         self.button_frame = tk.Frame(self.root, bg='#282C34')
         self.button_frame.pack(side=tk.LEFT, fill=tk.Y, padx=10, pady=10)
 
-        # Buttons
-        self.restart_button = tk.Button(
-            self.button_frame, text="Start a graph", command=self.restart_game, **self.button_style
-        )
-        self.restart_button.pack(fill=tk.X, pady=10)
-
-        self.reset_selection_button = tk.Button(
-            self.button_frame, text="Reset selection", command=self.reset_selection, **self.button_style
-        )
-        self.reset_selection_button.pack(fill=tk.X, pady=10)
-
-        self.check_path_button = tk.Button(
-            self.button_frame, text="Check your path", command=self.check_shortest_path, **self.button_style
-        )
-        self.check_path_button.pack(fill=tk.X, pady=10)
-
-        self.shortest_path_button = tk.Button(
-            self.button_frame, text="Display shortest path", command=self.toggle_shortest_path, **self.button_style
-        )
-        self.shortest_path_button.pack(fill=tk.X, pady=10)
-
-        self.quit_button = tk.Button(
-            self.button_frame, text="Quit", command=self.quit_game, **self.button_style
-        )
-        self.quit_button.pack(fill=tk.X, pady=10)
+        # Generate buttons dynamically
+        for text, command in button_commands:
+            button = tk.Button(self.button_frame, text=text, command=command, **self.button_style)
+            button.pack(fill=tk.X, pady=10)
 
         # Graph display area
         self.figure, self.ax = plt.subplots(figsize=(10, 5))
@@ -163,7 +151,7 @@ class GraphInterface:
                 if (abs(event.xdata - position[0]) < 0.2 and abs(event.ydata - position[1]) < 0.2):
                     self.handle_node_click(node)
 
-    def handle_node_click(self, node):
+    def handle_node_click(self, node: str):
         """Handles a single node click"""
         if node in self.selected_nodes:
             # Deselect node and remove its connections
