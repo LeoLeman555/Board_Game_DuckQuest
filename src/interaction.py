@@ -1,15 +1,16 @@
-import networkx as nx
+import json
 import tkinter as tk
+import networkx as nx
+from tkinter import messagebox
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from tkinter import messagebox
 
 class GraphInterface:
     def __init__(self, root: tk.Tk, graph):
         self.root = root
         self.graph = graph
 
-        self.root.title("DuckQuest - Game")
+        self.root.title("DuckQuest - Game Modelling")
         self.root.configure(bg='#282C34')  # Dark background
 
         # Styles
@@ -24,6 +25,7 @@ class GraphInterface:
 
         # Button commands
         button_commands = [
+            ("Help", self.help_screen),
             ("Start a graph", self.restart_game),
             ("Reset selection", self.reset_selection),
             ("Check your path", self.check_shortest_path),
@@ -41,7 +43,7 @@ class GraphInterface:
             button.pack(fill=tk.X, pady=10)
 
         # Graph display area
-        self.figure, self.ax = plt.subplots(figsize=(10, 5))
+        self.figure, self.ax = plt.subplots(figsize=(12, 6))
         self.canvas = FigureCanvasTkAgg(self.figure, master=self.root)
         self.canvas.get_tk_widget().pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=10, pady=10)
 
@@ -57,6 +59,7 @@ class GraphInterface:
         self.end_node = 'Q2'
         self.graph.assign_weights_and_colors()
         self.display_graph()
+        self.help_screen()
 
         # Connect click event
         self.canvas.mpl_connect("button_press_event", self.on_click)
@@ -81,6 +84,46 @@ class GraphInterface:
         self.selected_nodes = set()
         self.display_graph()
 
+    def help_screen(self):
+        """Display the game rules in an organized and visually appealing way."""
+        # Clear the current axis
+        self.ax.clear()
+        self.ax.set_facecolor("#282C34")  # Dark background for better visibility
+        self.ax.axis("off")  # Hide axes
+
+        # Load rules from JSON
+        with open("data/rules.json", "r") as file:
+            rules_data = json.load(file)
+        rules = rules_data["rules"]
+
+        # Add the rules as text, starting from the top
+        y_position = 1.1  # Start near the top
+        line_spacing = 0.04  # Space between lines
+
+        for section in rules:
+            header = section["header"]
+            content = section["content"]
+
+            # Add section header
+            self.ax.text(
+                0.05, y_position, header, fontsize=12, fontweight='bold', ha='left', va='top',
+                transform=self.ax.transAxes, color='black'
+            )
+            y_position -= line_spacing * 1.5  # Add extra space after the header
+
+            # Add section content
+            for line in content:
+                self.ax.text(
+                    0.07, y_position, line, fontsize=10, ha='left', va='top',
+                    transform=self.ax.transAxes, wrap=True, color='black'
+                )
+                y_position -= line_spacing
+
+            y_position -= line_spacing * 0.5  # Extra spacing after each section
+
+        # Ensure the canvas updates
+        self.canvas.draw()
+
     def toggle_shortest_path(self):
         """Displays or hides the shortest path directly on the graph"""
         if not self.shortest_path_displayed:
@@ -88,7 +131,7 @@ class GraphInterface:
             if path:
                 self.highlight_shortest_path(path)
             else:
-                messagebox.showinfo("Info", "No path found.")
+                messagebox.showerror("Error", "No path found.")
         else:
             self.display_user_path()
 
@@ -107,23 +150,52 @@ class GraphInterface:
         self.display_graph(edge_colors)
 
     def display_graph(self, edge_colors: list = None, node_colors: dict = None):
-        """Displays the graph in the main window"""
+        """Displays the graph in the main window with a legend for edge weights and colors"""
         self.ax.clear()
 
+        # Determine edge colors if not provided
         if edge_colors is None:
-            edge_colors = [data['color'] for u, v, data in self.graph.graph.edges(data=True)]
+            edge_colors = [data['color'] for _, _, data in self.graph.graph.edges(data=True)]
 
+        # Determine node colors if not provided
         if node_colors is None:
             node_colors = {node: 'lightblue' for node in self.graph.graph.nodes()}
 
+        # Create a list of colors for nodes
         node_colors_list = [node_colors.get(node, 'lightblue') for node in self.graph.graph.nodes()]
 
+        # Draw the graph
         nx.draw(
             self.graph.graph, pos=self.graph.node_positions, ax=self.ax, with_labels=True,
             node_size=500, node_color=node_colors_list, font_size=8, font_color='black',
             edge_color=edge_colors, width=5
         )
 
+        # Add a legend for edge weights and colors
+        weight_color_mapping = {
+            1: (0, 1, 0),
+            2: (0.78, 1, 0),
+            3: (1, 1, 0),
+            4: (1, 0.5, 0),
+            5: (1, 0, 0)
+        }
+        # Create legend handles
+        legend_handles = [
+            plt.Line2D([0], [0], color=color, lw=4, label=f'{weight}')
+            for weight, color in weight_color_mapping.items()
+        ]
+
+        self.ax.legend(
+            handles=legend_handles,
+            title="Edge Weights",
+            loc='lower left',  # Place the legend in the lower-left corner
+            ncol=1,  # Single column for compactness
+            fontsize=10,
+            title_fontsize=12,
+            frameon=True  # Optional: Add a border around the legend
+        )
+
+        # Redraw the canvas
         self.canvas.draw()
 
     def check_shortest_path(self):
