@@ -8,7 +8,7 @@ if src_path not in sys.path:
     sys.path.append(src_path)
 
 # Import the custom MyGraph class from the graph module
-from my_graph import MyGraph
+from graph_manager import *
 
 def print_graph_info(graph):
     """Function to print basic graph information including nodes, edges, and positions"""
@@ -37,7 +37,7 @@ def print_shortest_path(graph, start, end):
 
 if __name__ == "__main__":
     # Create a graph instance
-    graph = MyGraph()
+    graph = GraphManager()
     graph.assign_weights_and_colors()
 
     # Print the basic graph information

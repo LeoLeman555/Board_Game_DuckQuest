@@ -1,17 +1,17 @@
 import random
 import networkx as nx
 
-class MyGraph:
-    COLORS = [
-        (0, 1, 0),        # Soft Green
-        (0.78, 1, 0),     # Yellow-Green
-        (1, 1, 0),        # Bright Yellow
-        (1, 0.5, 0),      # Orange
-        (1, 0, 0),        # Bright Red
-    ]
+COLORS = {
+    1: (0, 1, 0),        # Soft Green
+    2: (0.78, 1, 0),     # Yellow-Green
+    3: (1, 1, 0),        # Bright Yellow
+    4: (1, 0.5, 0),      # Orange
+    5: (1, 0, 0),        # Bright Red
+}
 
+class GraphManager:
+    """A general-purpose graph manager with weighted edges and predefined node positions."""
     def __init__(self):
-        """Initialize the graph with nodes, edges, and positions."""
         self.graph = nx.Graph()
         self.nodes = self._initialize_nodes()
         self.edges = self._initialize_edges()
@@ -71,7 +71,7 @@ class MyGraph:
         for edge in self.graph.edges():
             weight = random.randint(min_weight, max_weight)
             self.graph[edge[0]][edge[1]]['weight'] = weight
-            self.graph[edge[0]][edge[1]]['color'] = self.COLORS[weight - 1]
+            self.graph[edge[0]][edge[1]]['color'] = COLORS[weight]
 
     def shortest_path(self, start: str, end: str) -> list[str] | None:
         """Return the shortest path between two nodes."""
