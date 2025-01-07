@@ -1,5 +1,7 @@
 # Duck Quest - Board Game
 
+![Logo](./assets/images/logo.png)
+
 *"Embark on a journey to teach children algorithmic thinking through a fun and interactive board game!"*
 
 DuckQuest is an educational game created within a school project. It is aimed at young children and allows them to learn to think like an algorithm in order to understand how these work. We achieve this by asking them to find the shortest route through a graph, just as a Dijkstra algorithm would.
@@ -42,17 +44,20 @@ The LED strips light up in different colors to represent edge weights:
 To build the DuckQuest board game, you need the following components:
 
 - Complete Raspberry Pi kit
-- Addressable RGB strips (like WS2812).
-- Push buttons for nodes.
-- Jumper wires and breadboard.
+
+*Not yet implemented :*\
+*- Addressable RGB strips (like WS2812).*\
+*- Push buttons for nodes.*\
+*- Jumper wires and breadboard.*
 
 ## Installation
 
 ### Prerequisites
-Ensure you have the following software installed:
+Ensure you have the following software installed on your raspberry:
 
 - [Python 3.6+](https://www.python.org/)
 - [Git](https://git-scm.com/)
+- An active graphical interface (like X11)
 
 ### Steps for Installation
 
