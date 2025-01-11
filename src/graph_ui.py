@@ -1,6 +1,7 @@
 import json
 import tkinter as tk
 import networkx as nx
+from audio_manager import *
 from tkinter import messagebox
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -40,8 +41,14 @@ class GraphUI:
             ("Reset selection", self.reset_selection),
             ("Check your path", self.check_shortest_path),
             ("Display shortest path", self.toggle_shortest_path),
+            ("Buzzer", self.play_buzzer),
+            ("Music Pause", self.play_music),
             ("Quit", self.quit_game),
         ]
+
+        # Play the music
+        self.audio_manager = AudioManager()
+        self.audio_manager.play_music('assets/sounds/music_1.wav')
 
         # Container for buttons
         self.button_frame = tk.Frame(self.root, bg='#282C34')
@@ -83,6 +90,13 @@ class GraphUI:
                     self.logic.handle_node_click(node)
                     self.display_user_path()
                     break
+
+    def play_music(self):
+        """Toggle music playback using AudioManager."""
+        self.audio_manager.pause_or_resume_music()
+
+    def play_buzzer(self):
+        self.audio_manager.play_sound_effect('assets/sounds/buzzer.wav')
 
     def help_screen(self):
         """Display the game rules in an organized and visually appealing way."""
