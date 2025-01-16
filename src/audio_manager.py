@@ -8,7 +8,7 @@ class AudioManager:
         pygame.mixer.init()
         self.music_paused = False  # Tracks if the music is paused
 
-    def play_music(self, file_path, loop=-1):
+    def play_music(self, file_path: str, loop=-1):
         """Play background music."""
         try:
             pygame.mixer.music.load(file_path)
@@ -34,10 +34,29 @@ class AudioManager:
         except Exception as e:
             print(f"Error stopping music: {e}")
 
-    def play_sound_effect(self, file_path):
+    def play_sound_effect(self, file_path: str):
         """Play a sound effect."""
         try:
             sound = pygame.mixer.Sound(file_path)
             sound.play()
         except Exception as e:
             print(f"Error playing sound effect: {e}")
+
+    def set_volume(self, volume: float):
+        """Set the volume for music."""
+        if 0.0 <= volume <= 1.0:
+            pygame.mixer.music.set_volume(volume)
+        else:
+            print("Error: Volume must be between 0.0 and 1.0.")
+
+    def increase_volume(self, increment=0.1):
+        """Increase the music volume by a specified increment."""
+        current_volume = pygame.mixer.music.get_volume()
+        new_volume = min(1.0, current_volume + increment)
+        pygame.mixer.music.set_volume(new_volume)
+
+    def decrease_volume(self, decrement=0.1):
+        """Decrease the music volume by a specified decrement."""
+        current_volume = pygame.mixer.music.get_volume()
+        new_volume = max(0.0, current_volume - decrement)
+        pygame.mixer.music.set_volume(new_volume)

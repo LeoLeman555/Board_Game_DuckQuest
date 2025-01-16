@@ -35,6 +35,7 @@ class GraphUI:
             "borderwidth": 2,
             "activebackground": "#528AAE",
         }
+        self.audio_manager = AudioManager()
 
         # Button commands
         button_commands = [
@@ -44,12 +45,13 @@ class GraphUI:
             ("Check your path", self.check_shortest_path),
             ("Display shortest path", self.toggle_shortest_path),
             ("Buzzer", self.play_buzzer),
-            ("Music Pause", self.play_music),
+            ("Increase volume", self.increase_volume),
+            ("Decrease_volume", self.decrease_volume),
+            ("Music pause", self.play_music),
             ("Quit", self.quit_game),
         ]
 
         # Play the music
-        self.audio_manager = AudioManager()
         self.audio_manager.play_music("assets/sounds/music_1.wav")
 
         # Container for buttons
@@ -106,6 +108,12 @@ class GraphUI:
 
     def play_buzzer(self):
         self.audio_manager.play_sound_effect("assets/sounds/buzzer.wav")
+
+    def increase_volume(self):
+        self.audio_manager.increase_volume()
+
+    def decrease_volume(self):
+        self.audio_manager.decrease_volume()
 
     def help_screen(self):
         """Display the game rules in an organized and visually appealing way."""
