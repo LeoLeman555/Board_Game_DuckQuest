@@ -1,7 +1,9 @@
 import pygame
 
+
 class AudioManager:
     """Manages background music and sound effects."""
+
     def __init__(self):
         pygame.mixer.init()
         self.music_paused = False  # Tracks if the music is paused

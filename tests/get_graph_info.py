@@ -3,12 +3,13 @@ import sys
 import os
 
 # Dynamically add the 'src' directory to the Python path to enable custom imports
-src_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src'))
+src_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
 if src_path not in sys.path:
     sys.path.append(src_path)
 
 # Import the custom MyGraph class from the graph module
 from graph_manager import *
+
 
 def print_graph_info(graph):
     """Function to print basic graph information including nodes, edges, and positions"""
@@ -27,6 +28,7 @@ def print_graph_info(graph):
     for node, position in graph.node_positions.items():
         print(f"{node}: {position}")
 
+
 def print_shortest_path(graph, start, end):
     """Function to print the shortest path between two nodes"""
     path = graph.shortest_path(start, end)
@@ -34,6 +36,7 @@ def print_shortest_path(graph, start, end):
         print(f"\nShortest path from {start} to {end}: {path}")
     else:
         print(f"\nNo path found between {start} and {end}.")
+
 
 if __name__ == "__main__":
     # Create a graph instance
@@ -44,4 +47,4 @@ if __name__ == "__main__":
     print_graph_info(graph)
 
     # Print the shortest path from 'A1' to 'Q2'
-    print_shortest_path(graph, 'A1', 'Q2')
+    print_shortest_path(graph, "A1", "Q2")

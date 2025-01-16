@@ -1,7 +1,9 @@
 import networkx as nx
 
+
 class GraphLogic:
     """Manages the logic and operations of the graph for the game."""
+
     def __init__(self, graph):
         self.graph = graph
         self.selected_path = []
@@ -10,8 +12,8 @@ class GraphLogic:
         self.shortest_path_displayed = False
 
         # Initialize the graph
-        self.start_node = 'A1'
-        self.end_node = 'Q2'
+        self.start_node = "A1"
+        self.end_node = "Q2"
         self.graph.assign_weights_and_colors()
 
     def reset_selection(self):
@@ -48,13 +50,14 @@ class GraphLogic:
             self.selected_nodes.remove(node)
             self.selected_path = [n for n in self.selected_path if n != node]
             self.user_path_edges = [
-                edge for edge in self.user_path_edges
-                if node not in edge
+                edge for edge in self.user_path_edges if node not in edge
             ]
         else:
             self.selected_nodes.add(node)
             if self.selected_path and self.selected_path[-1] != node:
                 edge = (self.selected_path[-1], node)
-                if self.graph.graph.has_edge(*edge) or self.graph.graph.has_edge(*edge[::-1]):
+                if self.graph.graph.has_edge(*edge) or self.graph.graph.has_edge(
+                    *edge[::-1]
+                ):
                     self.user_path_edges.append(edge)
             self.selected_path.append(node)

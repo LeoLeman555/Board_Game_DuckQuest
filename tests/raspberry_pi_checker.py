@@ -6,6 +6,7 @@ import socket
 
 class RaspberryPiChecker:
     """Class to verify Raspberry Pi readiness and display system information."""
+
     def __init__(self):
         self.system_info = {}
 
@@ -34,7 +35,10 @@ class RaspberryPiChecker:
             socket.create_connection(("8.8.8.8", 53), timeout=3)
             return True, "Internet connectivity: OK"
         except socket.timeout:
-            return False, "Timeout error: Unable to reach the server (connection timed out)."
+            return (
+                False,
+                "Timeout error: Unable to reach the server (connection timed out).",
+            )
         except socket.gaierror as e:
             return False, f"Address-related error: {e}."
         except OSError as e:

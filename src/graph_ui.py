@@ -7,31 +7,33 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 COLORS = {
-    1: (0, 1, 0),        # Soft Green
-    2: (0.78, 1, 0),     # Yellow-Green
-    3: (1, 1, 0),        # Bright Yellow
-    4: (1, 0.5, 0),      # Orange
-    5: (1, 0, 0),        # Bright Red
+    1: (0, 1, 0),  # Soft Green
+    2: (0.78, 1, 0),  # Yellow-Green
+    3: (1, 1, 0),  # Bright Yellow
+    4: (1, 0.5, 0),  # Orange
+    5: (1, 0, 0),  # Bright Red
 }
+
 
 class GraphUI:
     """Handles the graphical interface for displaying and interacting with the graph."""
+
     def __init__(self, root: tk.Tk, logic):
         self.root = root
         self.logic = logic
         self.graph = logic.graph
 
         self.root.title("DuckQuest - Game Modelling")
-        self.root.configure(bg='#282C34')
+        self.root.configure(bg="#282C34")
 
         # Styles
         self.button_style = {
-            'bg': '#61AFEF',
-            'fg': 'white',
-            'font': ('Arial', 12, 'bold'),
-            'relief': tk.RAISED,
-            'borderwidth': 2,
-            'activebackground': '#528AAE',
+            "bg": "#61AFEF",
+            "fg": "white",
+            "font": ("Arial", 12, "bold"),
+            "relief": tk.RAISED,
+            "borderwidth": 2,
+            "activebackground": "#528AAE",
         }
 
         # Button commands
@@ -48,23 +50,27 @@ class GraphUI:
 
         # Play the music
         self.audio_manager = AudioManager()
-        self.audio_manager.play_music('assets/sounds/music_1.wav')
+        self.audio_manager.play_music("assets/sounds/music_1.wav")
 
         # Container for buttons
-        self.button_frame = tk.Frame(self.root, bg='#282C34')
+        self.button_frame = tk.Frame(self.root, bg="#282C34")
         self.button_frame.pack(side=tk.LEFT, fill=tk.Y, padx=10, pady=10)
 
         for text, command in button_commands:
-            button = tk.Button(self.button_frame, text=text, command=command, **self.button_style)
+            button = tk.Button(
+                self.button_frame, text=text, command=command, **self.button_style
+            )
             button.pack(fill=tk.X, pady=10)
 
         # Graph display area
         self.figure, self.ax = plt.subplots(figsize=(12, 6))
         self.canvas = FigureCanvasTkAgg(self.figure, master=self.root)
-        self.canvas.get_tk_widget().pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=10, pady=10)
+        self.canvas.get_tk_widget().pack(
+            side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=10, pady=10
+        )
 
         self.display_graph()
-        self.help_screen() # Display help screen on startup
+        self.help_screen()  # Display help screen on startup
 
         self.canvas.mpl_connect("button_press_event", self.on_click)
 
@@ -86,7 +92,10 @@ class GraphUI:
         """Handles node clicks and builds the user's selected path"""
         if event.xdata and event.ydata:
             for node, position in self.graph.node_positions.items():
-                if (abs(event.xdata - position[0]) < 0.2 and abs(event.ydata - position[1]) < 0.2):
+                if (
+                    abs(event.xdata - position[0]) < 0.2
+                    and abs(event.ydata - position[1]) < 0.2
+                ):
                     self.logic.handle_node_click(node)
                     self.display_user_path()
                     break
@@ -96,7 +105,7 @@ class GraphUI:
         self.audio_manager.pause_or_resume_music()
 
     def play_buzzer(self):
-        self.audio_manager.play_sound_effect('assets/sounds/buzzer.wav')
+        self.audio_manager.play_sound_effect("assets/sounds/buzzer.wav")
 
     def help_screen(self):
         """Display the game rules in an organized and visually appealing way."""
@@ -116,13 +125,29 @@ class GraphUI:
             content = section["content"]
             # Add section header
             self.ax.text(
-                0.05, y_position, header, fontsize=12, fontweight='bold', ha='left', va='top',
-                transform=self.ax.transAxes, color='black')
+                0.05,
+                y_position,
+                header,
+                fontsize=12,
+                fontweight="bold",
+                ha="left",
+                va="top",
+                transform=self.ax.transAxes,
+                color="black",
+            )
             y_position -= line_spacing * 1.5  # Add extra space after the header
-            for line in content: # Add section content
+            for line in content:  # Add section content
                 self.ax.text(
-                    0.07, y_position, line, fontsize=10, ha='left', va='top',
-                    transform=self.ax.transAxes, wrap=True, color='black')
+                    0.07,
+                    y_position,
+                    line,
+                    fontsize=10,
+                    ha="left",
+                    va="top",
+                    transform=self.ax.transAxes,
+                    wrap=True,
+                    color="black",
+                )
                 y_position -= line_spacing
             y_position -= line_spacing * 0.5  # Extra spacing after each section
         # Ensure the canvas updates
@@ -155,20 +180,30 @@ class GraphUI:
         edge_colors = []
         for edge in self.graph.graph.edges():
             if edge in edges_in_path or (edge[1], edge[0]) in edges_in_path:
-                edge_colors.append('purple')
+                edge_colors.append("purple")
             else:
-                edge_colors.append(self.graph.graph[edge[0]][edge[1]].get('color', 'black'))
+                edge_colors.append(
+                    self.graph.graph[edge[0]][edge[1]].get("color", "black")
+                )
         self.display_graph(edge_colors)
 
     def display_user_path(self):
         """Highlights the user's selected path and selected nodes"""
         edge_colors = []
         for edge in self.graph.graph.edges():
-            if edge in self.logic.user_path_edges or (edge[1], edge[0]) in self.logic.user_path_edges:
-                edge_colors.append('cyan')
+            if (
+                edge in self.logic.user_path_edges
+                or (edge[1], edge[0]) in self.logic.user_path_edges
+            ):
+                edge_colors.append("cyan")
             else:
-                edge_colors.append(self.graph.graph[edge[0]][edge[1]].get('color', 'black'))
-        node_colors = {node: 'cyan' if node in self.logic.selected_nodes else 'lightblue' for node in self.graph.graph.nodes()}
+                edge_colors.append(
+                    self.graph.graph[edge[0]][edge[1]].get("color", "black")
+                )
+        node_colors = {
+            node: "cyan" if node in self.logic.selected_nodes else "lightblue"
+            for node in self.graph.graph.nodes()
+        }
         self.display_graph(edge_colors, node_colors)
 
     def display_graph(self, edge_colors: list = None, node_colors: dict = None):
@@ -176,17 +211,28 @@ class GraphUI:
         self.ax.clear()
         # Determine edge colors if not provided
         if edge_colors is None:
-            edge_colors = [data['color'] for _, _, data in self.graph.graph.edges(data=True)]
+            edge_colors = [
+                data["color"] for _, _, data in self.graph.graph.edges(data=True)
+            ]
         # Determine node colors if not provided
         if node_colors is None:
-            node_colors = {node: 'lightblue' for node in self.graph.graph.nodes()}
+            node_colors = {node: "lightblue" for node in self.graph.graph.nodes()}
         # Create a list of colors for nodes
-        node_colors_list = [node_colors.get(node, 'lightblue') for node in self.graph.graph.nodes()]
+        node_colors_list = [
+            node_colors.get(node, "lightblue") for node in self.graph.graph.nodes()
+        ]
         # Draw the graph
         nx.draw(
-            self.graph.graph, pos=self.graph.node_positions, ax=self.ax, with_labels=True,
-            node_size=500, node_color=node_colors_list, font_size=8, font_color='black',
-            edge_color=edge_colors, width=5
+            self.graph.graph,
+            pos=self.graph.node_positions,
+            ax=self.ax,
+            with_labels=True,
+            node_size=500,
+            node_color=node_colors_list,
+            font_size=8,
+            font_color="black",
+            edge_color=edge_colors,
+            width=5,
         )
         self.display_legend()
         # Redraw the canvas
@@ -194,5 +240,16 @@ class GraphUI:
 
     def display_legend(self):
         """Add a legend for edge weights and colors"""
-        legend_handles = [plt.Line2D([0], [0], color=color, lw=4, label=f'{weight}')for weight, color in COLORS.items()]
-        self.ax.legend(handles=legend_handles, title="Edge Weights", loc='lower left', ncol=1, fontsize=10, title_fontsize=12, frameon=True)
+        legend_handles = [
+            plt.Line2D([0], [0], color=color, lw=4, label=f"{weight}")
+            for weight, color in COLORS.items()
+        ]
+        self.ax.legend(
+            handles=legend_handles,
+            title="Edge Weights",
+            loc="lower left",
+            ncol=1,
+            fontsize=10,
+            title_fontsize=12,
+            frameon=True,
+        )

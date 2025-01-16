@@ -3,7 +3,7 @@ import sys
 import tkinter as tk
 
 # Add the 'src' directory to the Python path to enable custom imports
-src_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src'))
+src_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src"))
 sys.path.append(src_path)
 
 # Import custom modules for graph and interaction logic
