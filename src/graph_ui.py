@@ -46,7 +46,7 @@ class GraphUI:
             ("Display shortest path", self.toggle_shortest_path),
             ("Buzzer", self.play_buzzer),
             ("Increase volume", self.increase_volume),
-            ("Decrease_volume", self.decrease_volume),
+            ("Decrease volume", self.decrease_volume),
             ("Music pause", self.play_music),
             ("Quit", self.quit_game),
         ]
