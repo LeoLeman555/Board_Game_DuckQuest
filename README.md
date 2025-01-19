@@ -44,11 +44,12 @@ The LED strips light up in different colors to represent edge weights:
 To build the DuckQuest board game, you need the following components:
 
 - Complete Raspberry Pi kit
+- Push buttons for nodes
+- Jumper wires
 
 *Not yet implemented :*\
 *- Addressable RGB strips (like WS2812).*\
-*- Push buttons for nodes.*\
-*- Jumper wires and breadboard.*
+*- Breadboard.*
 
 ## Installation
 
@@ -61,7 +62,7 @@ Ensure you have the following software installed on your raspberry:
 
 ### Steps for Installation
 
-1. Clone the repository:
+1. Clone the repository on your Raspberry Pi:
    ```bash
    git clone https://github.com/LeoLeman555/Board_Game_DuckQuest.git
    ```
@@ -77,11 +78,7 @@ Ensure you have the following software installed on your raspberry:
    ```
 
 4. Activate the virtual environment:
-   - **On Windows**:
-   ```bash
-   venv\Scripts\activate
-   ```
-   - **On macOS/Linux**:
+   - **Linux**:
    ```bash
    source venv/bin/activate
    ```
@@ -116,6 +113,47 @@ Use this script to verify if the Raspberry Pi setup is functional:
   - Tests internet connectivity.
   - Displays essential system details (CPU, memory, disk usage).
 
+### Button Checker
+
+The Button Checker script tests the functionality of a button connected to the Raspberry Pi GPIO pins. It logs each button press, release, and calculates the duration of presses.
+
+#### How to Use
+
+1. Connect the button to the Raspberry Pi GPIO pin configured in the script (default is GPIO **17**).
+2. Run the script:
+   ```bash
+   python ./button_checker.py
+   ```
+   The script will:
+   - Detect button presses and releases.
+   - Log events in a file named `button_test.txt` inside the `logs` directory.
+3. Press the button
+
+#### Example Output
+
+During execution, you will see output like this in the terminal:
+
+```plaintext
+GPIO port used: 17
+Configuration: Button set with internal pull-up.
+Events will be logged in the file: logs/button_test.txt
+Press the button to start.
+Button pressed!
+Button released! Duration: 0.324 seconds
+Total presses: 1
+```
+
+#### Logs
+
+- A `logs` directory is automatically created (if it doesn't exist).
+- Button press events are logged in `logs/button_test.txt`. Example log entry:
+  ```plaintext
+  2025-01-01 00:00:00 - Button pressed and released. Duration: 0.050 s. Count: 1
+  ```
+
+#### Stopping the Test
+
+- Use `CTRL + C` to stop the test. Final statistics (total duration and total presses) will be displayed in the terminal and written to the log file.
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
