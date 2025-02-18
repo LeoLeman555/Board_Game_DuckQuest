@@ -35,18 +35,19 @@ class GraphUI:
             "borderwidth": 2,
             "activebackground": "#528AAE",
         }
+
         self.audio_manager = AudioManager()
 
         # Button commands
-        button_commands = [
+        self.button_commands = [
             ("Help", self.help_screen),
             ("Start a graph", self.restart_game),
             ("Reset selection", self.reset_selection),
             ("Check your path", self.check_shortest_path),
+            ("Select node", self.select_node),
+            ("Next node", self.next_node),
+            ("Previous node", self.previous_node),
             ("Display shortest path", self.toggle_shortest_path),
-            ("Buzzer", self.play_buzzer),
-            ("Increase volume", self.increase_volume),
-            ("Decrease volume", self.decrease_volume),
             ("Music pause", self.play_music),
             ("Quit", self.quit_game),
         ]
@@ -58,7 +59,7 @@ class GraphUI:
         self.button_frame = tk.Frame(self.root, bg="#282C34")
         self.button_frame.pack(side=tk.LEFT, fill=tk.Y, padx=10, pady=10)
 
-        for text, command in button_commands:
+        for text, command in self.button_commands:
             button = tk.Button(
                 self.button_frame, text=text, command=command, **self.button_style
             )
@@ -70,15 +71,32 @@ class GraphUI:
         self.canvas.get_tk_widget().pack(
             side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=10, pady=10
         )
-
         self.display_graph()
         self.help_screen()  # Display help screen on startup
-
         self.canvas.mpl_connect("button_press_event", self.on_click)
 
     def quit_game(self):
         """Closes the application"""
         self.root.quit()
+
+    def next_node(self):
+        """Move selection to the next available node in a cyclic manner."""
+        self.logic.selection_index = (self.logic.selection_index + 1) % len(
+            self.logic.available_nodes
+        )
+        self.display_user_path()
+
+    def previous_node(self):
+        """Move selection to the previous available node in a cyclic manner."""
+        self.logic.selection_index = (self.logic.selection_index - 1) % len(
+            self.logic.available_nodes
+        )
+        self.display_user_path()
+
+    def select_node(self):
+        """Handle node selection"""
+        self.logic.change_current_node()
+        self.display_user_path()
 
     def reset_selection(self):
         """Reset all selected nodes and edges"""
@@ -88,7 +106,7 @@ class GraphUI:
     def restart_game(self):
         """Restarts the game by randomizing edge weights"""
         self.logic.restart_game()
-        self.display_graph()
+        self.display_user_path()
 
     def on_click(self, event):
         """Handles node clicks and builds the user's selected path"""
@@ -209,9 +227,19 @@ class GraphUI:
                     self.graph.graph[edge[0]][edge[1]].get("color", "black")
                 )
         node_colors = {
-            node: "cyan" if node in self.logic.selected_nodes else "lightblue"
+            node: (
+                "yellow"
+                if node == self.logic.available_nodes[self.logic.selection_index]
+                and node in self.logic.selected_nodes
+                else (
+                    "green"
+                    if node == self.logic.available_nodes[self.logic.selection_index]
+                    else "cyan" if node in self.logic.selected_nodes else "lightblue"
+                )
+            )
             for node in self.graph.graph.nodes()
         }
+
         self.display_graph(edge_colors, node_colors)
 
     def display_graph(self, edge_colors: list = None, node_colors: dict = None):

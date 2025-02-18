@@ -14,13 +14,34 @@ class GraphLogic:
         # Initialize the graph
         self.start_node = "A1"
         self.end_node = "Q2"
+
+        self.current_node = self.start_node
+        self.available_nodes = self.get_available_nodes()
+        self.selection_index = 0
+
         self.graph.assign_weights_and_colors()
+        self.change_current_node()
+
+    def get_available_nodes(self):
+        """Return a list of available neighboring nodes."""
+        return [self.current_node, *reversed(self.graph.neighbors(self.current_node))]
+
+    def change_current_node(self):
+        """Update the current node to the selected node."""
+        self.current_node = self.available_nodes[self.selection_index]
+        self.available_nodes = self.get_available_nodes()
+        self.handle_node_click(self.current_node)
+        self.selection_index = 0
 
     def reset_selection(self):
         """Reset all selected nodes and edges"""
         self.selected_path = []
         self.user_path_edges = []
         self.selected_nodes = set()
+
+        self.current_node = self.start_node
+        self.available_nodes = self.get_available_nodes()
+        self.selection_index = 0
 
     def restart_game(self):
         """Restarts the game by randomizing edge weights"""
