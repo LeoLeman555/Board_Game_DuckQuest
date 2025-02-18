@@ -54,11 +54,14 @@ To build the DuckQuest board game, you need the following components:
 ## Installation
 
 ### Prerequisites
+
+>⚠️ **Warning:** This project is designed for Raspberry Pi. If you run on another Linux system, some features (like GPIO) may not work.
+
 Ensure you have the following software installed on your raspberry:
 
 - [Python 3.6+](https://www.python.org/)
 - [Git](https://git-scm.com/)
-- An active graphical interface (like X11)
+- An active graphical interface (like X11) – **required for running the game UI**
 
 ### Steps for Installation
 
@@ -82,11 +85,21 @@ Ensure you have the following software installed on your raspberry:
    ```bash
    source venv/bin/activate
    ```
-
-5. Install the required dependencies:
-   ```bash
-   pip install -r requirements.txt
+   - **Windows**:
+   ```powershell
+   venv\Scripts\activate
    ```
+
+5. Installing dependencies with a Python script:
+   ```bash
+   python install.py
+   ```
+
+> **Why use `install.py` instead of `requirements.txt`?**  
+> The `RPi.GPIO` module is specifically designed for Raspberry Pi and does not work on Windows or non-Raspberry Pi Linux systems.  
+> If included directly in `requirements.txt`, installation would fail on unsupported platforms.  
+>  
+> The `install.py` script ensures that `RPi.GPIO` is installed only if the script detects a Raspberry Pi.   
 
 6. You are fine !
 
