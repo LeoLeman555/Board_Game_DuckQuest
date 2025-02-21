@@ -1,6 +1,7 @@
 import sys
 import subprocess
 
+
 def is_raspberry_pi():
     """Check if the system is a Raspberry Pi."""
     try:
@@ -8,6 +9,7 @@ def is_raspberry_pi():
             return "Raspberry Pi" in f.read()
     except FileNotFoundError:
         return False
+
 
 # Upgrade pip first
 subprocess.run([sys.executable, "-m", "pip", "install", "--upgrade", "pip"], check=True)
@@ -27,7 +29,7 @@ common_requirements = [
     "pygame==2.6.1",
     "pyparsing==3.2.0",
     "python-dateutil==2.9.0.post0",
-    "six==1.17.0"
+    "six==1.17.0",
 ]
 
 # Add RPi.GPIO only if running on a Raspberry Pi
@@ -36,7 +38,9 @@ if is_raspberry_pi():
 
 # Install dependencies
 try:
-    subprocess.run([sys.executable, "-m", "pip", "install"] + common_requirements, check=True)
+    subprocess.run(
+        [sys.executable, "-m", "pip", "install"] + common_requirements, check=True
+    )
     print("✅ Installation completed successfully!")
 except subprocess.CalledProcessError:
     print("❌ Installation failed. Check the error messages above.")
