@@ -2,6 +2,7 @@ import json
 import tkinter as tk
 import networkx as nx
 from audio_manager import *
+from button_manager import *
 from tkinter import messagebox
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -36,8 +37,6 @@ class GraphUI:
             "activebackground": "#528AAE",
         }
 
-        self.audio_manager = AudioManager()
-
         # Button commands
         self.button_commands = [
             ("Help", self.help_screen),
@@ -53,6 +52,7 @@ class GraphUI:
         ]
 
         # Play the music
+        self.audio_manager = AudioManager()
         self.audio_manager.play_music("assets/sounds/music_1.wav")
 
         # Container for buttons
@@ -75,8 +75,32 @@ class GraphUI:
         self.help_screen()  # Display help screen on startup
         self.canvas.mpl_connect("button_press_event", self.on_click)
 
+        # Start GPIO button verification
+        self.running = True
+        self.button_manager = ButtonManager([17, 22, 23, 27, 16])
+        self.check_buttons()
+
+    def check_buttons(self):
+        """Check whether a button is pressed and performs the corresponding action."""
+        if self.running:
+            pressed_button = self.button_manager.get_pressed_button()
+            if pressed_button == 17:
+                self.select_node()
+            elif pressed_button == 22:
+                self.next_node()
+            elif pressed_button == 23:
+                self.previous_node()
+            elif pressed_button == 27:
+                self.reset_selection()
+            elif pressed_button == 16:
+                self.check_shortest_path()
+
+            self.root.after(100, self.check_buttons)  # Check every 100ms
+
     def quit_game(self):
-        """Closes the application"""
+        """Close the application."""
+        self.running = False
+        self.button_manager.cleanup()
         self.root.quit()
 
     def next_node(self):
