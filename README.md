@@ -45,11 +45,9 @@ To build the DuckQuest board game, you need the following components:
 
 - Complete Raspberry Pi kit
 - Push buttons for nodes
+- Addressable RGB strips for edges (like WS2812)
+- 5V Power Supply for powering the LED strip
 - Jumper wires
-
-*Not yet implemented :*\
-*- Addressable RGB strips (like WS2812).*\
-*- Breadboard.*
 
 ## Installation
 
@@ -97,9 +95,10 @@ Ensure you have the following software installed on your raspberry:
 
 > **Why use `install.py` instead of `requirements.txt`?**  
 > The `RPi.GPIO` module is specifically designed for Raspberry Pi and does not work on Windows or non-Raspberry Pi Linux systems.  
-> If included directly in `requirements.txt`, installation would fail on unsupported platforms.  
+> If included directly in `requirements.txt`, installation would fail on unsupported platforms. 
+> Additionally, the `rpi_ws281x` module, which is used to control the WS281x LED strips, is also Raspberry Pi-specific. Just like `RPi.GPIO`, it doesn't function on other platforms.
 >  
-> The `install.py` script ensures that `RPi.GPIO` is installed only if the script detects a Raspberry Pi.   
+> The `install.py` script ensures that both `RPi.GPIO` and `rpi_ws281x` are installed only if the script detects a Raspberry Pi. This makes the installation process more flexible and prevents errors on unsupported platforms.
 
 6. You are fine !
 
@@ -167,6 +166,41 @@ Total presses: 1
 #### Stopping the Test
 
 - Use `CTRL + C` to stop the test. Final statistics (total duration and total presses) will be displayed in the terminal and written to the log file.
+
+### LED Strip Checker
+
+#### How to Use
+1. Connect the LED strip to the Raspberry Pi using the correct wiring:
+   - Data Pin (GPIO 18): Connect this pin to the data input (DATA IN) of the LED strip. Ensure you're using the correct direction indicated on the strip (often marked with an arrow or “DATA IN”).
+   - Ground (GND): Connect to the ground (GND) pin of the Raspberry Pi and the ground (GND) pin of the LED strip.
+   - Power (5V): Connect to a suitable 5V power source, either directly from the Raspberry Pi (if using a small strip) or a separate 5V power supply for longer strips.
+2. Run the script:
+   ```bash
+   sudo $(which python) tests/led_strip_checker.py
+   ```
+   The script will:
+   - Initialize the LED strip.
+   - Run various animations like color wipe, theater chase, and rainbow effects.
+   - Display output in the terminal indicating the ongoing animation.
+3. Watch the LEDs light up as the script runs different animations:
+   - Color wipe (changes the entire strip to one color at a time).
+   - Theater chase (creates a moving light effect).
+   - Rainbow (colors cycle across the strip).
+
+#### Example Output
+
+During execution, you will see output like this in the terminal:
+
+```plaintext
+GPIO port used: 18
+Number of LEDs: 144
+Color wipe animations.
+Theater chase animations.
+Rainbow animations.
+```
+#### Stopping the Test
+
+- Use `CTRL + C` to stop the test.
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
