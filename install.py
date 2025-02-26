@@ -32,9 +32,12 @@ common_requirements = [
     "six==1.17.0",
 ]
 
-# Add RPi.GPIO only if running on a Raspberry Pi
+# Add Raspberry Pi-specific dependencies if necessary
 if is_raspberry_pi():
-    common_requirements.append("RPi.GPIO==0.7.1")
+    common_requirements.extend([
+        "RPi.GPIO==0.7.1",  # Managing the Raspberry Pi's GPIOs
+        "rpi_ws281x==5.0.0"  # WS281x LED strip control
+    ])
 
 # Install dependencies
 try:
