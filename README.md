@@ -106,7 +106,7 @@ Ensure you have the following software installed on your raspberry:
 ### Computer Game Modeling
 1. Start the test suite:
    ```bash
-   python ./tests/launch_game.py
+   python -m tests.launch_game 
    ```
 2. Interact with the GUI:
    - Press nodes to select the path.
