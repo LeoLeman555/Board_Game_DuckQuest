@@ -63,7 +63,11 @@ class GraphLogic:
             return "No path between selected nodes.", 0
 
         # Checking the first and last nodes selected
-        if not self.selected_path or self.selected_path[0] != self.start_node or self.selected_path[-1] != self.end_node:
+        if (
+            not self.selected_path
+            or self.selected_path[0] != self.start_node
+            or self.selected_path[-1] != self.end_node
+        ):
             return "Your path must start at the beginning and end at the goal.", 0
 
         # Calculate the weight of the path selected by the user
@@ -81,7 +85,10 @@ class GraphLogic:
         message, score = self.calculate_score()
 
         if score == 100:
-            return f"Congratulations! You've found the shortest path! You're amazing! {message}", score
+            return (
+                f"Congratulations! You've found the shortest path! You're amazing! {message}",
+                score,
+            )
         else:
             return f"This is not the shortest route. {message} Try again!", score
 
