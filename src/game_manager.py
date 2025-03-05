@@ -45,7 +45,7 @@ class GameManager:
             elif pressed_button == 27:
                 self.reset_selection()
             elif pressed_button == 16:
-                self.check_shortest_path()
+                self.check_path()
 
             self.root.after(100, self.check_buttons)  # Check every 100ms
 
