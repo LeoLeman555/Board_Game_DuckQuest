@@ -32,11 +32,11 @@ class GraphUI:
             ("Help", self.help_screen),
             ("Start a graph", self.game_manager.restart_game),
             ("Reset selection", self.game_manager.reset_selection),
-            ("Check your path", self.game_manager.check_shortest_path),
+            ("Check your path", self.game_manager.check_path),
+            ("Display shortest path", self.game_manager.toggle_shortest_path),
             ("Select node", self.game_manager.select_node),
             ("Next node", self.game_manager.next_node),
             ("Previous node", self.game_manager.previous_node),
-            ("Display shortest path", self.game_manager.toggle_shortest_path),
             ("Music pause", self.audio_manager.pause_or_resume_music),
             ("Quit", self.game_manager.quit_game),
         ]
@@ -44,6 +44,16 @@ class GraphUI:
         # Create a frame to hold the buttons
         self.button_frame = tk.Frame(self.root, bg="#282C34")
         self.button_frame.pack(side=tk.LEFT, fill=tk.Y, padx=10, pady=10)
+
+        # Score banner at top of screen
+        self.score_label = tk.Label(
+            self.root,
+            text="SCORE : 0 PTS",
+            bg="#282C34",
+            fg="white",
+            font=("Arial", 15, "bold"),
+        )
+        self.score_label.pack(side=tk.TOP, fill=tk.X, padx=10, pady=5)
 
         # Generate buttons dynamically from the list of commands
         for text, command in self.button_commands:
@@ -68,6 +78,10 @@ class GraphUI:
 
         # Connect mouse click events to the graph interaction logic
         self.canvas.mpl_connect("button_press_event", self.game_manager.on_click)
+
+    def update_score_display(self, score):
+        """Update the score display bar."""
+        self.score_label.config(text=f"SCORE : {score} PTS")
 
     def help_screen(self):
         """Display the game rules in an organized and visually appealing way."""

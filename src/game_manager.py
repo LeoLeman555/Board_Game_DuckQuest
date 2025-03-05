@@ -14,7 +14,7 @@ class GameManager:
     def __init__(self):
         # Initialize the graph structure and game logic
         self.graph = GraphManager()
-        self.logic = GraphLogic(self.graph)
+        self.logic = GraphLogic(self)
 
         # Initialize and play background music
         self.audio_manager = AudioManager()
@@ -29,6 +29,8 @@ class GameManager:
         self.running = True
         self.button_manager = ButtonManager([17, 22, 23, 27, 16])  # GPIO pin setup
         self.check_buttons()  # Start monitoring button presses
+
+        self.score = 0
 
     def check_buttons(self):
         """Check whether a button is pressed and performs the corresponding action."""
@@ -94,14 +96,16 @@ class GameManager:
                     self.graph_renderer.display_user_path()
                     break
 
-    def check_shortest_path(self):
+    def check_path(self):
         """Check if the user's selected path is the shortest path"""
-        result = self.logic.check_shortest_path()
+        result, score = self.logic.check_shortest_path()
         if result.startswith("Congratulations"):
             messagebox.showinfo("Success", result)
-            self.restart_game()
         else:
             messagebox.showerror("Error", result)
+        self.score += score * 10
+        self.graph_ui.update_score_display(self.score)
+        self.restart_game()
 
     def toggle_shortest_path(self):
         """Display or hide the shortest path directly on the graph"""
