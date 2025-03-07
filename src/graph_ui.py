@@ -12,6 +12,12 @@ BUTTON_STYLE = {
     "activebackground": "#528AAE",
 }
 
+LABEL_STYLE = {
+    "bg": "#282C34",
+    "fg": "white",
+    "font": ("Arial", 15, "bold"),
+}
+
 
 class GraphUI:
     """Handle the graphical interface for displaying and interacting with the graph."""
@@ -45,22 +51,46 @@ class GraphUI:
         self.button_frame = tk.Frame(self.root, bg="#282C34")
         self.button_frame.pack(side=tk.LEFT, fill=tk.Y, padx=10, pady=10)
 
-        # Score banner at top of screen
-        self.score_label = tk.Label(
-            self.root,
-            text="SCORE : 0 PTS",
-            bg="#282C34",
-            fg="white",
-            font=("Arial", 15, "bold"),
-        )
-        self.score_label.pack(side=tk.TOP, fill=tk.X, padx=10, pady=5)
-
         # Generate buttons dynamically from the list of commands
         for text, command in self.button_commands:
             button = tk.Button(
                 self.button_frame, text=text, command=command, **BUTTON_STYLE
             )
             button.pack(fill=tk.X, pady=10)
+        self.top_frame = tk.Frame(self.root, bg="#282C34")
+        self.top_frame.pack(side=tk.TOP, fill=tk.X, padx=10, pady=5)
+
+        self.difficulty_label = tk.Label(
+            self.top_frame,
+            text="DIFFICULTY : ",
+            **LABEL_STYLE,  # Applique le style commun
+        )
+        self.difficulty_label.pack(side=tk.LEFT, padx=10)
+
+        self.difficulty_scale = tk.Scale(
+            self.top_frame,
+            from_=1,
+            to=11,
+            orient=tk.HORIZONTAL,
+            length=200,
+            bg="#61AFEF",
+            fg="#282C34",
+            highlightbackground="#282C34",
+            troughcolor="#282C34",
+            sliderrelief=tk.RAISED,
+            showvalue=False,
+            command=self.update_difficulty,
+        )
+        self.difficulty_scale.set(self.game_manager.difficulty)
+        self.difficulty_scale.pack(side=tk.LEFT)
+
+        # Score banner
+        self.score_label = tk.Label(
+            self.top_frame,
+            text=f"SCORE : {self.game_manager.score} PTS",
+            **LABEL_STYLE,  # Applique le style commun
+        )
+        self.score_label.pack(side=tk.LEFT, padx=10)
 
         # Initialize the graph display area using Matplotlib
         self.figure, self.ax = plt.subplots(figsize=(12, 6))
@@ -79,7 +109,12 @@ class GraphUI:
         # Connect mouse click events to the graph interaction logic
         self.canvas.mpl_connect("button_press_event", self.game_manager.on_click)
 
-    def update_score_display(self, score):
+    def update_difficulty(self, value):
+        """Update the difficulty."""
+        self.game_manager.difficulty = int(value)
+        self.game_manager.restart_game()
+
+    def update_score_display(self, score: int):
         """Update the score display bar."""
         self.score_label.config(text=f"SCORE : {score} PTS")
 

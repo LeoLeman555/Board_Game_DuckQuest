@@ -12,6 +12,9 @@ class GameManager:
     """Manage the overall game state, including logic, UI, audio, and hardware interactions."""
 
     def __init__(self):
+        self.score = 0
+        self.difficulty = 6
+
         # Initialize the graph structure and game logic
         self.graph = GraphManager()
         self.logic = GraphLogic(self)
@@ -29,8 +32,6 @@ class GameManager:
         self.running = True
         self.button_manager = ButtonManager([17, 22, 23, 27, 16])  # GPIO pin setup
         self.check_buttons()  # Start monitoring button presses
-
-        self.score = 0
 
     def check_buttons(self):
         """Check whether a button is pressed and performs the corresponding action."""
@@ -64,17 +65,17 @@ class GameManager:
         self.graph_renderer.display_user_path()
 
     def select_node(self):
-        """Handle node selection"""
+        """Handle node selection."""
         self.logic.change_current_node()
         self.graph_renderer.display_user_path()
 
     def reset_selection(self):
-        """Reset all selected nodes and edges"""
+        """Reset all selected nodes and edges."""
         self.logic.reset_selection()
         self.graph_renderer.display_graph()
 
     def restart_game(self):
-        """Restart the game by randomizing edge weights"""
+        """Restart the game."""
         self.logic.restart_game()
         self.graph_renderer.display_user_path()
 
@@ -103,7 +104,7 @@ class GameManager:
             messagebox.showinfo("Success", result)
         else:
             messagebox.showerror("Error", result)
-        self.score += score * 10
+        self.score += score * self.difficulty
         self.graph_ui.update_score_display(self.score)
         self.restart_game()
 

@@ -21,7 +21,7 @@ class GraphLogic:
         self.available_nodes = self.get_available_nodes()
         self.selection_index = 0
 
-        self.graph.assign_weights_and_colors()
+        self.graph.assign_weights_and_colors(self.game_manager.difficulty)
         self.change_current_node()
 
     def get_available_nodes(self):
@@ -47,7 +47,7 @@ class GraphLogic:
 
     def restart_game(self):
         """Restart the game by randomizing edge weights"""
-        self.graph.assign_weights_and_colors()
+        self.graph.assign_weights_and_colors(self.game_manager.difficulty)
         self.shortest_path_displayed = False
         self.reset_selection()
 

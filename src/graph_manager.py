@@ -9,6 +9,20 @@ COLORS = {
     5: (1, 0, 0),  # Bright Red
 }
 
+WEIGHTS_MAP = {
+    1: [1],
+    2: [1, 5],
+    3: [1, 4],
+    4: [1, 3],
+    5: [1, 2],
+    6: [1, 5, 3],
+    7: [1, 5, 4],
+    8: [1, 5, 2],
+    9: [1, 5, 3, 4],
+    10: [1, 5, 3, 2],
+    11: [1, 5, 3, 4, 2],
+}
+
 
 class GraphManager:
     """A general-purpose graph manager with weighted edges and predefined node positions."""
@@ -156,15 +170,11 @@ class GraphManager:
             "R2": (8, 0.5),
         }
 
-    def assign_weights_and_colors(
-        self, min_weight: int = 1, max_weight: int = 5
-    ) -> None:
-        """Assign random weights and colors to all edges."""
-        if min_weight > max_weight:
-            raise ValueError("min_weight must be less than or equal to max_weight.")
-
+    def assign_weights_and_colors(self, difficulty=6) -> None:
+        """Assign weights and colors based on difficulty level."""
+        available_weights = WEIGHTS_MAP[difficulty]
         for edge in self.graph.edges():
-            weight = random.randint(min_weight, max_weight)
+            weight = random.choice(available_weights)
             self.graph[edge[0]][edge[1]]["weight"] = weight
             self.graph[edge[0]][edge[1]]["color"] = COLORS[weight]
 
