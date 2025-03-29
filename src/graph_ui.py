@@ -26,7 +26,7 @@ class GraphUI:
         self.game_manager = game_manager
         self.graph = self.game_manager.graph
         self.logic = self.game_manager.logic
-        self.audio_manager = self.game_manager.audio_manager
+        # self.audio_manager = self.game_manager.audio_manager
 
         # Initialize the main Tkinter window
         self.root = tk.Tk()
@@ -43,7 +43,7 @@ class GraphUI:
             ("Select node", self.game_manager.select_node),
             ("Next node", self.game_manager.next_node),
             ("Previous node", self.game_manager.previous_node),
-            ("Music pause", self.audio_manager.pause_or_resume_music),
+            # ("Music pause", self.audio_manager.pause_or_resume_music),
             ("Quit", self.game_manager.quit_game),
         ]
 

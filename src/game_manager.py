@@ -6,6 +6,7 @@ from src.graph_renderer import *
 from src.graph_ui import *
 from src.audio_manager import *
 from src.button_manager import *
+from src.led_strip_manager import *
 
 
 class GameManager:
@@ -20,13 +21,16 @@ class GameManager:
         self.logic = GraphLogic(self)
 
         # Initialize and play background music
-        self.audio_manager = AudioManager()
-        self.audio_manager.play_music("assets/sounds/music_1.wav")
+        # self.audio_manager = AudioManager()
+        # self.audio_manager.play_music("assets/sounds/music_1.wav")
 
         # Initialize UI components
         self.graph_renderer = GraphRenderer(self)
         self.graph_ui = GraphUI(self)
         self.root = self.graph_ui.root
+
+        # LED Strip
+        self.led_strip_manager = LEDStripManager()
 
         # Start GPIO button verification
         self.running = True
@@ -81,6 +85,7 @@ class GameManager:
 
     def quit_game(self):
         """Close the application."""
+        self.led_strip_manager.clear()
         self.running = False
         self.button_manager.cleanup()
         self.root.quit()
@@ -102,11 +107,16 @@ class GameManager:
         result, score = self.logic.check_shortest_path()
         if result.startswith("Congratulations"):
             messagebox.showinfo("Success", result)
+            self.restart_game()
         else:
             messagebox.showerror("Error", result)
+            self.reset_selection()
+        self.led_strip_manager.blink(
+            self.led_strip_manager.score_effect(score / 100), 5, 200
+        )
+        self.led_strip_manager.clear()
         self.score += score * self.difficulty
         self.graph_ui.update_score_display(self.score)
-        self.restart_game()
 
     def toggle_shortest_path(self):
         """Display or hide the shortest path directly on the graph"""
