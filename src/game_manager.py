@@ -1,18 +1,16 @@
 from tkinter import *
 from tkinter import messagebox
-from src.graph_manager import *
-from src.graph_logic import *
-from src.graph_renderer import *
-from src.graph_ui import *
-from src.audio_manager import *
-from src.button_manager import *
-from src.led_strip_manager import *
+from src.graph_manager import GraphManager
+from src.graph_logic import GraphLogic
+from src.graph_renderer import GraphRenderer
+from src.graph_ui import GraphUI
 
 
+# from src.audio_manager import AudioManager
 class GameManager:
     """Manage the overall game state, including logic, UI, audio, and hardware interactions."""
 
-    def __init__(self):
+    def __init__(self, is_rpi: bool):
         self.score = 0
         self.difficulty = 6
 
@@ -29,16 +27,21 @@ class GameManager:
         self.graph_ui = GraphUI(self)
         self.root = self.graph_ui.root
 
-        # LED Strip
-        self.led_strip_manager = LEDStripManager()
+        # Import the correct hardware manager
+        if is_rpi:
+            from src.button_manager import ButtonManager
+            from src.led_strip_manager import LEDStripManager
+        else:
+            from src.mock_hardware import ButtonManager, LEDStripManager
 
-        # Start GPIO button verification
+        # Initialize hardware
+        self.led_strip_manager = LEDStripManager()
         self.running = True
         self.button_manager = ButtonManager([17, 22, 23, 27, 16])  # GPIO pin setup
-        self.check_buttons()  # Start monitoring button presses
+        self.check_buttons()
 
     def check_buttons(self):
-        """Check whether a button is pressed and performs the corresponding action."""
+        """Check whether a button is pressed and perform the corresponding action."""
         if self.running:
             pressed_button = self.button_manager.get_pressed_button()
             if pressed_button == 17:
