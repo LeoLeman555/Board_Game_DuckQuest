@@ -11,7 +11,7 @@ DuckQuest is an educational game created within a school project. It is aimed at
 - [Overview](#overview)
 - [Setup](#setup)
 - [Installation](#installation)
-- [Usage](#usage)
+- [Run](#run)
 - [Tests](#tests)
 - [License](#license)
 - [Contact](#contact)
@@ -102,6 +102,12 @@ Ensure you have the following software installed on your raspberry:
 
 6. You are fine !
 
+## Run
+To launch the game, use the following command:
+```bash
+sudo -E $(which python) -m src.main
+```
+
 ## Tests
 ### Computer Game Modeling
 1. Start the test suite:
@@ -125,6 +131,43 @@ Use this script to verify if the Raspberry Pi setup is functional:
   - Tests internet connectivity.
   - Displays essential system details (CPU, memory, disk usage).
 
+### Hardware Checker
+
+This script tests both the button connected to the Raspberry Pi GPIO and an LED strip. The button press will change the LED strip's color to yellow.
+
+#### How to Use
+
+1. Connect the button to the Raspberry Pi GPIO pin configured in the script (default is GPIO 17).
+2. Connect the LED strip to the Raspberry Pi:
+   - Data Pin (GPIO 18): Connect this pin to the data input (DATA IN) of the LED strip.
+   - Ground (GND): Connect to the ground (GND) pin of the Raspberry Pi and the LED strip.
+   - Power (5V): Connect to a suitable 5V power source.
+3. Run the script:
+```bash
+   sudo $(which python) tests/hardware_checker.py
+```
+The script will monitor the button for presses.
+   - When the button is pressed, it will turn the LEDs yellow.
+   - When the button is released, the LEDs will turn off.
+
+#### Example Output
+
+During execution, you will see output like this in the terminal:
+
+```plaintext
+GPIO port used for the button: 17
+GPIO port used for LEDs: 18
+Number of LEDs: 144
+Press the button to turn the LEDs yellow.
+```
+
+#### Stopping the Test
+
+Use `CTRL + C` to stop the test. The program will clean up GPIO settings and turn off the LEDs.
+
+#### Troubleshooting
+If the button and/or LED strip are not functioning correctly when running the combined test, you can test them separately using the instructions below.
+
 ### Button Checker
 
 The Button Checker script tests the functionality of a button connected to the Raspberry Pi GPIO pins. It logs each button press, release, and calculates the duration of presses.
@@ -134,7 +177,7 @@ The Button Checker script tests the functionality of a button connected to the R
 1. Connect the button to the Raspberry Pi GPIO pin configured in the script (default is GPIO **17**).
 2. Run the script:
    ```bash
-   python ./button_checker.py
+   python tests/button_checker.py
    ```
    The script will:
    - Detect button presses and releases.
