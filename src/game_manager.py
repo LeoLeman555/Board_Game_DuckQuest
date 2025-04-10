@@ -79,7 +79,7 @@ class GameManager:
     def reset_selection(self):
         """Reset all selected nodes and edges."""
         self.logic.reset_selection()
-        self.graph_renderer.display_graph()
+        self.graph_renderer.display_user_path()
 
     def restart_game(self):
         """Restart the game."""
