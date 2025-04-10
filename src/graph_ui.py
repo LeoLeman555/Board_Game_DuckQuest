@@ -39,7 +39,7 @@ class GraphUI:
             ("Start a graph", self.game_manager.restart_game),
             ("Reset selection", self.game_manager.reset_selection),
             ("Check your path", self.game_manager.check_path),
-            ("Display shortest path", self.game_manager.toggle_shortest_path),
+            ("Solution", self.game_manager.toggle_shortest_path),
             ("Select node", self.game_manager.select_node),
             ("Next node", self.game_manager.next_node),
             ("Previous node", self.game_manager.previous_node),
