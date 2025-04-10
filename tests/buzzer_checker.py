@@ -48,6 +48,8 @@ class BuzzerChecker:
 
 if __name__ == "__main__":
     BUTTON_GPIO = 17  # Replace with your button's GPIO pin
-    SOUND_FILE = "assets/sounds/congratulation.wav"  # Replace with the path to your sound file
+    SOUND_FILE = (
+        "assets/sounds/congratulation.wav"  # Replace with the path to your sound file
+    )
     button_sound_player = BuzzerChecker(BUTTON_GPIO, SOUND_FILE)
     button_sound_player.play_sound_on_button_press()
