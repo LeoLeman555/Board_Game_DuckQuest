@@ -20,7 +20,7 @@ class GameManager:
 
         # Initialize and play background music
         # self.audio_manager = AudioManager()
-        # self.audio_manager.play_music("assets/sounds/music_1.wav")
+        # self.audio_manager.play_music("duckquest/assets/sounds/music_1.wav")
 
         # Initialize UI components
         self.graph_renderer = GraphRenderer(self)

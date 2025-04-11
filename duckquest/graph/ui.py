@@ -127,7 +127,7 @@ class GraphUI:
         self.ax.set_facecolor("#282C34")  # Dark background for better visibility
         self.ax.axis("off")  # Hide axes
         # Load rules from JSON
-        with open("data/rules.json", "r") as file:
+        with open("duckquest/data/rules.json", "r") as file:
             rules_data = json.load(file)
         rules = rules_data["rules"]
         # Add the rules as text, starting from the top

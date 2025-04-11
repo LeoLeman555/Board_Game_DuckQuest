@@ -1,6 +1,6 @@
 # Duck Quest - Board Game
 
-![Logo](./assets/images/logo.png)
+![Logo](./duckquest/assets/images/logo.png)
 
 *"Embark on a journey to teach children algorithmic thinking through a fun and interactive board game!"*
 
@@ -24,7 +24,7 @@ In DuckQuest, the graph is represented as a network of routes around a pond. Chi
 ### Example Visualization
 Below is a sample graph with nodes and edges:
 
-![Sample graph](./assets/images/sample_graph.png)
+![Sample graph](./duckquest/assets/images/sample_graph.png)
 
 ## Setup
 
@@ -119,7 +119,7 @@ sudo -E $(which python) -m src.main
    - Validate your selection to see if it matches the shortest path.
 3. Example:
 
-![Duck Quest Graph](./assets/images/game_interface.png)
+![Duck Quest Graph](./duckquest/assets/images/game_interface.png)
 
 ### Raspberry Pi Readiness Checker
 Use this script to verify if the Raspberry Pi setup is functional:
