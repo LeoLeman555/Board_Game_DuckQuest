@@ -1,12 +1,12 @@
 from tkinter import *
 from tkinter import messagebox
-from src.graph_manager import GraphManager
-from src.graph_logic import GraphLogic
-from src.graph_renderer import GraphRenderer
-from src.graph_ui import GraphUI
+from duckquest.graph.manager import GraphManager
+from duckquest.graph.logic import GraphLogic
+from duckquest.graph.renderer import GraphRenderer
+from duckquest.graph.ui import GraphUI
 
 
-# from src.audio_manager import AudioManager
+# from duckquest.audio.manager import AudioManager
 class GameManager:
     """Manage the overall game state, including logic, UI, audio, and hardware interactions."""
 
@@ -29,10 +29,10 @@ class GameManager:
 
         # Import the correct hardware manager
         if is_rpi:
-            from src.button_manager import ButtonManager
-            from src.led_strip_manager import LEDStripManager
+            from duckquest.hardware.button_manager import ButtonManager
+            from duckquest.hardware.led_strip_manager import LEDStripManager
         else:
-            from src.mock_hardware import ButtonManager, LEDStripManager
+            from duckquest.hardware.mock import ButtonManager, LEDStripManager
 
         # Initialize hardware
         self.led_strip_manager = LEDStripManager()
