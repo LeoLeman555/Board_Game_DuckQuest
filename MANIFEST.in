@@ -1,0 +1,8 @@
+include LICENSE
+include docs/README_PYPI.md 
+recursive-include duckquest *.py
+recursive-include duckquest/audio *
+recursive-include duckquest/graph *
+recursive-include duckquest/hardware *
+recursive-include duckquest/utils *
+recursive-include tests *
