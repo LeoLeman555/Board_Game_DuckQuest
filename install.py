@@ -16,20 +16,9 @@ subprocess.run([sys.executable, "-m", "pip", "install", "--upgrade", "pip"], che
 
 # List of dependencies
 common_requirements = [
-    "contourpy==1.3.1",
-    "cycler==0.12.1",
-    "fonttools==4.55.3",
-    "kiwisolver==1.4.7",
     "matplotlib==3.10.0",
     "networkx==3.4.2",
-    "numpy==2.2.0",
-    "packaging==24.2",
-    "pillow==11.0.0",
-    "psutil==6.1.1",
     "pygame==2.6.1",
-    "pyparsing==3.2.0",
-    "python-dateutil==2.9.0.post0",
-    "six==1.17.0",
 ]
 
 # Add Raspberry Pi-specific dependencies if necessary
