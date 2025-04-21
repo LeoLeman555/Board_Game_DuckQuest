@@ -121,16 +121,6 @@ sudo -E $(which python) -m src.main
 
 ![Duck Quest Graph](./duckquest/assets/images/game_interface.png)
 
-### Raspberry Pi Readiness Checker
-Use this script to verify if the Raspberry Pi setup is functional:
-   ```bash
-   python ./tests/raspberry_pi_checker.py
-   ```
-
-- **Features**:
-  - Tests internet connectivity.
-  - Displays essential system details (CPU, memory, disk usage).
-
 ### Hardware Checker
 
 This script tests both the button connected to the Raspberry Pi GPIO and an LED strip. The button press will change the LED strip's color to yellow.
