@@ -11,6 +11,12 @@ class DummyGameManager:
 
 
 @pytest.fixture
+def graph_manager():
+    """Provide a fresh instance of GraphManager for each test."""
+    return GraphManager()
+
+
+@pytest.fixture
 def logic():
     """Fixture for initializing GraphLogic with a dummy game manager."""
     game_manager = DummyGameManager()
