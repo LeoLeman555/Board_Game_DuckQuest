@@ -16,7 +16,7 @@ New-Item -ItemType Directory -Force -Path $failureDir | Out-Null
 try {
   while ($true) {
     # Run tests and capture output
-    $result = python -m pytest tests/ --disable-warnings --tb=short -s 2>&1
+    $result = python -m pytest tests/ -m "not manual" --disable-warnings --tb=short -s 2>&1
 
     # General session log
     Add-Content -Path $sessionLogPath -Value "===== ITERATION #$iteration ====="
