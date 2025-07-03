@@ -105,7 +105,7 @@ Ensure you have the following software installed on your raspberry:
 ## Run
 To launch the game, use the following command:
 ```bash
-sudo -E $(which python) -m src.main
+sudo -E $(which python) -m duckquest.main
 ```
 
 ## Tests
