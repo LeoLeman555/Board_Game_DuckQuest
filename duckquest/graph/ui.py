@@ -2,6 +2,9 @@ import json
 import tkinter as tk
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from duckquest.utils.logger import setup_logger
+
+logger = setup_logger(__name__)
 
 BUTTON_STYLE = {
     "bg": "#61AFEF",
@@ -23,6 +26,7 @@ class GraphUI:
     """Handle the graphical interface for displaying and interacting with the graph."""
 
     def __init__(self, game_manager):
+        logger.info("Initializing GraphUI")
         self.game_manager = game_manager
         self.graph = self.game_manager.graph
         self.logic = self.game_manager.logic
@@ -57,13 +61,15 @@ class GraphUI:
                 self.button_frame, text=text, command=command, **BUTTON_STYLE
             )
             button.pack(fill=tk.X, pady=10)
+        logger.debug("Buttons initialized")
+
         self.top_frame = tk.Frame(self.root, bg="#282C34")
         self.top_frame.pack(side=tk.TOP, fill=tk.X, padx=10, pady=5)
 
         self.difficulty_label = tk.Label(
             self.top_frame,
             text="DIFFICULTY : ",
-            **LABEL_STYLE,  # Applique le style commun
+            **LABEL_STYLE,
         )
         self.difficulty_label.pack(side=tk.LEFT, padx=10)
 
@@ -83,14 +89,16 @@ class GraphUI:
         )
         self.difficulty_scale.set(self.game_manager.difficulty)
         self.difficulty_scale.pack(side=tk.LEFT)
+        logger.debug("Difficulty scale configured")
 
         # Score banner
         self.score_label = tk.Label(
             self.top_frame,
             text=f"SCORE : {self.game_manager.score} PTS",
-            **LABEL_STYLE,  # Applique le style commun
+            **LABEL_STYLE,
         )
         self.score_label.pack(side=tk.LEFT, padx=10)
+        logger.debug("Score label initialized")
 
         # Initialize the graph display area using Matplotlib
         self.figure, self.ax = plt.subplots(figsize=(12, 6))
@@ -98,39 +106,54 @@ class GraphUI:
         self.canvas.get_tk_widget().pack(
             side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=10, pady=10
         )
+        logger.debug("Matplotlib canvas initialized")
 
         # Link the renderer to the UI for visualization
         self.game_manager.graph_renderer.init_ui(self.ax, self.canvas)
         self.game_manager.graph_renderer.display_graph()
 
+        logger.info("UI setup complete - displaying help screen")
         # Display help screen on startup
         self.help_screen()
 
         # Connect mouse click events to the graph interaction logic
         self.canvas.mpl_connect("button_press_event", self.game_manager.on_click)
+        logger.debug("Canvas click binding established")
 
     def update_difficulty(self, value):
         """Update the difficulty."""
-        self.game_manager.difficulty = int(value)
+        new_difficulty = int(value)
+        logger.info(f"Difficulty changed to {new_difficulty}")
+        self.game_manager.difficulty = new_difficulty
         self.game_manager.restart_game()
 
     def update_score_display(self, score: int):
         """Update the score display bar."""
+        logger.info(f"Score updated: {score} pts")
         self.score_label.config(text=f"SCORE : {score} PTS")
 
     def help_screen(self):
         """Display the game rules in an organized and visually appealing way."""
+        logger.debug("Displaying help screen")
         y_position = 1.1  # Start near the top
         line_spacing = 0.04  # Space between lines
         # Clear the current axis
+
         self.ax.clear()
         self.ax.set_facecolor("#282C34")  # Dark background for better visibility
         self.ax.axis("off")  # Hide axes
-        # Load rules from JSON
-        with open("duckquest/data/rules.json", "r") as file:
-            rules_data = json.load(file)
-        rules = rules_data["rules"]
-        # Add the rules as text, starting from the top
+
+        try:
+            # Load rules from JSON
+            with open("duckquest/data/rules.json", "r") as file:
+                rules_data = json.load(file)
+            rules = rules_data["rules"]
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            logger.error(f"Failed to load rules: {e}")
+            self.ax.text(0.5, 0.5, "Error loading rules.", ha="center", va="center")
+            self.canvas.draw()
+            return
+
         for section in rules:
             header = section["header"]
             content = section["content"]
@@ -161,5 +184,7 @@ class GraphUI:
                 )
                 y_position -= line_spacing
             y_position -= line_spacing * 0.5  # Extra spacing after each section
+
         # Ensure the canvas updates
         self.canvas.draw()
+        logger.info("Help screen rendered")

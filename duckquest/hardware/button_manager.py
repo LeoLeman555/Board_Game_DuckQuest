@@ -1,26 +1,38 @@
 import RPi.GPIO as GPIO
+from duckquest.utils.logger import setup_logger
+
+logger = setup_logger(__name__)
 
 
 class ButtonManager:
-    """Manage multiple buttons connected to GPIO."""
+    """Manage GPIO buttons on Raspberry Pi."""
 
-    def __init__(self, pins: list):
+    def __init__(self, pins: list[int]):
+        """Initialize GPIO pins for button input."""
         self.pins = pins
+        logger.info(f"Initializing ButtonManager with pins: {self.pins}")
         GPIO.setmode(GPIO.BCM)
         self.setup_buttons()
 
     def setup_buttons(self):
-        """Configure GPIO pins as input with pull-up enabled."""
+        """Configure pins as pull-up inputs."""
         for pin in self.pins:
             GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+            logger.debug(f"Pin {pin} set as input with pull-up")
 
     def get_pressed_button(self) -> int | None:
-        """Return the pressed button if any, otherwise None."""
+        """Return the GPIO pin of the pressed button, or None."""
         for pin in self.pins:
-            if GPIO.input(pin) == GPIO.LOW:  # Button pressed
+            state = GPIO.input(pin)
+            logger.debug(
+                f"Reading pin {pin}: {'LOW (pressed)' if state == GPIO.LOW else 'HIGH'}"
+            )
+            if state == GPIO.LOW:
+                logger.info(f"Button pressed on pin {pin}")
                 return pin
         return None  # No button pressed
 
     def cleanup(self):
-        """Clean up GPIO."""
+        """Clean up GPIO state."""
         GPIO.cleanup()
+        logger.info("GPIO cleaned up")

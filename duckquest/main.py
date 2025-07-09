@@ -1,21 +1,36 @@
 import platform
 from duckquest.utils.helpers import is_raspberry_pi
+from duckquest.utils.logger import setup_logger
+
+logger = setup_logger(__name__)  # Initialize module-level logger
 
 
 def main():
+    """Main entry point for Duck Quest."""
     OS_NAME = platform.system()
     ON_RASPBERRY_PI = is_raspberry_pi()
 
-    print(f"Starting game on {OS_NAME}")
+    logger.info(f"Starting Duck Quest on OS: {OS_NAME}")
+
     if ON_RASPBERRY_PI:
-        print("Running on Raspberry Pi hardware.")
+        logger.info("Running on Raspberry Pi hardware.")
     else:
-        print("Running in mock mode (Non-Raspberry Pi system).")
+        logger.warning(
+            "Hardware mode disabled: running in mock mode (not a Raspberry Pi system). GPIO and LED features will be simulated."
+        )
 
-    from duckquest.game_manager import GameManager
+    try:
+        from duckquest.game_manager import GameManager
 
-    game = GameManager(ON_RASPBERRY_PI)
-    game.root.mainloop()
+        logger.debug("Instantiating GameManager")
+        game = GameManager(ON_RASPBERRY_PI)
+        logger.info("GameManager instantiated, launching mainloop.")
+        game.root.mainloop()
+        logger.info("Main loop terminated cleanly.")
+
+    except Exception as e:
+        logger.critical(f"Unhandled exception in main: {e}", exc_info=True)
+        raise
 
 
 if __name__ == "__main__":

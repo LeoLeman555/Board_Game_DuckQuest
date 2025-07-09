@@ -1,5 +1,8 @@
 import random
 import networkx as nx
+from duckquest.utils.logger import setup_logger
+
+logger = setup_logger(__name__)
 
 COLORS = {
     1: (0, 1, 0),  # Soft Green
@@ -28,6 +31,7 @@ class GraphManager:
     """A general-purpose graph manager with weighted edges and predefined node positions."""
 
     def __init__(self):
+        logger.info("Initializing GraphManager")
         self.graph = nx.Graph()
         self.nodes = self._initialize_nodes()
         self.edges = self._initialize_edges()
@@ -36,6 +40,9 @@ class GraphManager:
         # Add nodes and edges to the graph
         self.graph.add_nodes_from(self.nodes)
         self.graph.add_edges_from(self.edges)
+        logger.debug(
+            f"Added {len(self.nodes)} nodes and {len(self.edges)} edges to graph"
+        )
 
     def _initialize_nodes(self) -> list[str]:
         """Create the list of graph nodes."""
@@ -172,29 +179,41 @@ class GraphManager:
 
     def assign_weights_and_colors(self, difficulty=6) -> None:
         """Assign weights and colors based on difficulty level."""
+        logger.info(f"Assigning edge weights and colors (difficulty={difficulty})")
         available_weights = WEIGHTS_MAP[difficulty]
         for edge in self.graph.edges():
             weight = random.choice(available_weights)
             self.graph[edge[0]][edge[1]]["weight"] = weight
             self.graph[edge[0]][edge[1]]["color"] = COLORS[weight]
+        logger.debug("All edge weights and colors assigned")
 
     def shortest_path(self, start: str, end: str) -> list[str] | None:
         """Return the shortest path between two nodes."""
+        logger.debug(f"Computing shortest path from {start} to {end}")
         try:
-            return nx.shortest_path(
+            path = nx.shortest_path(
                 self.graph, source=start, target=end, weight="weight"
             )
+            logger.info(f"Shortest path found from {start} to {end}: {path}")
+            return path
         except nx.NetworkXNoPath:
+            logger.warning(f"No path between {start} and {end}")
             return None
 
     def edge_weight(self, node1: str, node2: str) -> int | None:
         """Return the weight of the edge between two nodes."""
         if not self.graph.has_edge(node1, node2):
+            logger.warning(f"Edge not found between {node1} and {node2}")
             return None
-        return self.graph[node1][node2].get("weight")
+        weight = self.graph[node1][node2].get("weight")
+        logger.debug(f"Edge weight between {node1} and {node2}: {weight}")
+        return weight
 
     def neighbors(self, node: str) -> list[str]:
         """Return the neighbors of a node."""
         if node not in self.graph:
+            logger.error(f"Node '{node}' does not exist in the graph.")
             raise ValueError(f"Node '{node}' does not exist in the graph.")
-        return list(self.graph.neighbors(node))
+        neighbors = list(self.graph.neighbors(node))
+        logger.debug(f"Neighbors of {node}: {neighbors}")
+        return neighbors

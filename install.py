@@ -19,7 +19,7 @@ common_requirements = [
     "matplotlib==3.10.0",
     "networkx==3.4.2",
     "pygame==2.6.1",
-    "pytest==8.0.0"
+    "pytest==8.0.0",
 ]
 
 # Add Raspberry Pi-specific dependencies if necessary

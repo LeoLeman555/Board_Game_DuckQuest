@@ -1,5 +1,8 @@
 import networkx as nx
 import matplotlib.pyplot as plt
+from duckquest.utils.logger import setup_logger
+
+logger = setup_logger(__name__)
 
 COLORS = {
     1: (0, 1, 0),  # Soft Green
@@ -14,26 +17,34 @@ class GraphRenderer:
     """Responsible for rendering the graph and highlighting user interaction."""
 
     def __init__(self, game_manager):
+        logger.info("Initializing GraphRenderer")
         self.game_manager = game_manager
         self.graph = self.game_manager.graph
         self.logic = self.game_manager.logic
+        self.ax = None
+        self.canvas = None
 
     def init_ui(self, ax, canvas):
         """Initialize the Matplotlib axis and canvas for rendering."""
         self.ax = ax
         self.canvas = canvas
+        logger.debug("UI initialized with axis and canvas")
 
     def display_graph(self, edge_colors: list = None, node_colors: dict = None):
         """Display the graph in the main window with a legend for edge weights and colors"""
+        logger.debug("Rendering full graph")
         self.ax.clear()
         # Determine edge colors if not provided
         if edge_colors is None:
             edge_colors = [
                 data["color"] for _, _, data in self.graph.graph.edges(data=True)
             ]
+            logger.debug("Default edge colors applied")
         # Determine node colors if not provided
         if node_colors is None:
             node_colors = {node: "lightblue" for node in self.graph.graph.nodes()}
+            logger.debug("Default node colors applied")
+
         # Create a list of colors for nodes
         node_colors_list = [
             node_colors.get(node, "lightblue") for node in self.graph.graph.nodes()
@@ -51,9 +62,10 @@ class GraphRenderer:
             edge_color=edge_colors,
             width=5,
         )
+
         self.display_legend(self.ax)
-        # Redraw the canvas
         self.canvas.draw()
+        logger.info("Graph rendered on canvas")
 
     def display_legend(self, ax):
         """Add a legend for edge weights and colors"""
@@ -70,9 +82,11 @@ class GraphRenderer:
             title_fontsize=12,
             frameon=True,
         )
+        logger.debug("Legend displayed")
 
     def display_user_path(self):
         """Highlight the user's selected path and selected nodes"""
+        logger.debug("Displaying user-selected path")
         edge_colors = []
         for edge in self.graph.graph.edges():
             if (
@@ -84,6 +98,7 @@ class GraphRenderer:
                 edge_colors.append(
                     self.graph.graph[edge[0]][edge[1]].get("color", "black")
                 )
+
         node_colors = {
             node: (
                 "yellow"
@@ -99,9 +114,11 @@ class GraphRenderer:
         }
 
         self.display_graph(edge_colors, node_colors)
+        logger.info("User path rendered")
 
     def highlight_shortest_path(self, path: list):
         """Highlight the shortest path in purple"""
+        logger.debug(f"Highlighting shortest path: {path}")
         edges_in_path = [(path[i], path[i + 1]) for i in range(len(path) - 1)]
         edge_colors = []
         for edge in self.graph.graph.edges():
@@ -111,4 +128,6 @@ class GraphRenderer:
                 edge_colors.append(
                     self.graph.graph[edge[0]][edge[1]].get("color", "black")
                 )
+
         self.display_graph(edge_colors)
+        logger.info("Shortest path highlighted")
