@@ -22,6 +22,10 @@ python -m pytest -m "not manual"
 
 Pytest will discover all tests in the `tests/` directory. Manual tests are explicitly excluded via markers.
 
+> All test modules now use the central logging system instead of print statements.
+> Logs are written to both the console (level: INFO) and the `logs/duck_quest.log` file (level: DEBUG).
+> This allows better traceability during debugging, especially for test failures or skipped scenarios.
+
 ## Manual UI Test
 
 Due to the use of mainloop() in the UI, it cannot be tested automatically.
@@ -38,6 +42,8 @@ Example:
 
 ![Duck Quest Graph](../duckquest/assets/images/game_interface.png)
 
+> The manual test also logs events such as UI startup and exceptions (if any) to the standard logging system.
+
 ## Hardware Checker
 
 This script tests both the button connected to the Raspberry Pi GPIO and an LED strip. The button press will change the LED strip's color to yellow.
@@ -52,14 +58,16 @@ This script tests both the button connected to the Raspberry Pi GPIO and an LED 
 | Raspberry Pi Pin |    LED Strip     |
 |------------------|------------------|
 | GPIO 18 (pin 12) | Data Input (DIN) |
-|	    GND        |       GND        |
-|   5V (pin 2/4)   |	VCC (Power)   |
+|	    GND         |       GND        |
+|   5V (pin 2/4)   |	  VCC (Power)    |
 
 3. Run the script:
 ```bash
-   sudo $(which python) scripts/hardware_checker.py
+   sudo $(which python) -m scripts.hardware_checker
 ```
 4. Press the button to turn the LED strip yellow. Release it to turn the LEDs off.
+
+> All status and error messages are logged using the centralized logger. The log file can be reviewed under `logs/duck_quest.log` after running the test.
 
 ### Stopping the Test
 
@@ -83,13 +91,15 @@ Connect the button to the Raspberry Pi GPIO pin 17 (default) and to GND.
 
 2. Run the script:
    ```bash
-   python scripts/button_checker.py
+   python -m scripts.button_checker
    ```
 3. Press the button
 
 ### Example Output
 
-During execution, you will see output like this in the terminal:
+The logger outputs status messages to both the console and the log file. 
+
+Example console output:
 
 ```plaintext
 Monitoring GPIO pin 17 for button input (Ctrl+C to stop)...
@@ -124,7 +134,7 @@ Connect the LED strip to the Raspberry Pi as follows:
 
 2. Run the script:
    ```bash
-   sudo $(which python) scripts/led_strip_checker.py
+   sudo $(which python) -m scripts.led_strip_checker
    ```
 3. What the script does:
 
@@ -140,7 +150,9 @@ The script sequentially runs the following animations:
 
 ### Example Output
 
-During execution, you will see output like this in the terminal:
+The logger provides real-time feedback. 
+
+Console output examples:
 
 ```plaintext
 GPIO port used: 18

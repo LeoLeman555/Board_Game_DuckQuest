@@ -1,9 +1,12 @@
 import time
 import RPi.GPIO as GPIO
 from rpi_ws281x import PixelStrip, Color
+from duckquest.utils.logger import setup_logger
+
+logger = setup_logger(__name__)
 
 # GPIO pin for the button
-BUTTON_GPIO = 17  # Change this according to your setup
+BUTTON_GPIO = 17  # Adjust as needed
 
 # LED strip configuration
 LED_COUNT = 144  # Number of LEDs in the strip
@@ -20,7 +23,7 @@ LED_CHANNEL = 0  # Use channel 1 for GPIOs 13, 19, 41, 45, or 53
 class HardwareChecker:
     """Controls the LED strip and monitors a button press."""
 
-    def __init__(self, button_gpio):
+    def __init__(self, button_gpio: int):
         self.button_gpio = button_gpio
         self._setup_gpio()
 
@@ -35,58 +38,64 @@ class HardwareChecker:
             LED_CHANNEL,
         )
         self.strip.begin()
+        logger.info("LED strip initialized.")
 
-    def _setup_gpio(self):
-        """Configures the GPIO pin for the button with a pull-up resistor."""
+    def _setup_gpio(self) -> None:
+        """Configure the GPIO pin for input with internal pull-up."""
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.button_gpio, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        logger.info(f"GPIO pin {self.button_gpio} configured as input with pull-up.")
 
-    def all_color(self, color):
-        """Sets all LEDs to a specified color."""
+    def all_color(self, color: Color) -> None:
+        """Set all LEDs to the specified color."""
         for i in range(self.strip.numPixels()):
             self.strip.setPixelColor(i, color)
         self.strip.show()
 
-    def blink(self, color, repetitions, wait_ms):
-        """Blinks the LEDs with a given color and duration."""
+    def blink(self, color: Color, repetitions: int, wait_ms: int) -> None:
+        """Blink the LEDs with a specific color."""
+        logger.info(f"Blinking {repetitions} times with color: {color}.")
         for _ in range(repetitions):
             self.all_color(color)
             time.sleep(wait_ms / 1000.0)
-            self.all_color(Color(0, 0, 0))  # Turn off LEDs
+            self.clear()
             time.sleep(wait_ms / 1000.0)
 
-    def clear(self):
-        """Turns off all LEDs."""
+    def clear(self) -> None:
+        """Turn off all LEDs."""
         self.all_color(Color(0, 0, 0))
 
-    def cleanup(self):
-        """Turns off LEDs and resets GPIO settings before exiting."""
+    def cleanup(self) -> None:
+        """Reset LEDs and GPIO state."""
         self.clear()
         GPIO.cleanup()
-        print("GPIO cleaned up. Program exiting.")
+        logger.info("GPIO and LEDs cleaned up. Exiting program.")
 
-    def run(self):
-        """Continuously monitors the button and changes LED color when pressed."""
-        print("Press the button to turn the LEDs yellow.")
+    def run(self) -> None:
+        """Monitor button and respond with LED changes."""
+        logger.info("Running hardware checker. Press button to activate yellow LEDs.")
         try:
             while True:
-                if GPIO.input(self.button_gpio) == GPIO.LOW:  # Button is pressed
-                    self.all_color(Color(255, 255, 0))  # Set LEDs to yellow
-                    time.sleep(0.2)  # Small delay to avoid bouncing issues
+                if GPIO.input(self.button_gpio) == GPIO.LOW:
+                    logger.debug("Button pressed.")
+                    self.all_color(Color(255, 255, 0))  # Yellow
+                    time.sleep(0.2)
                 else:
                     self.clear()
                 time.sleep(0.01)  # Short delay to reduce CPU usage
         except KeyboardInterrupt:
-            print("Program interrupted by user.")
+            logger.warning("Hardware checker interrupted by user.")
+        except Exception as e:
+            logger.exception("Unexpected error in hardware checker.")
+            raise
         finally:
             self.cleanup()
 
 
-# Main execution
 if __name__ == "__main__":
-    print(f"GPIO port used for the button: {BUTTON_GPIO}")
-    print(f"GPIO port used for LEDs: {LED_PIN}")
-    print(f"Number of LEDs: {LED_COUNT}")
+    logger.info(f"Using button GPIO: {BUTTON_GPIO}")
+    logger.info(f"Using LED GPIO: {LED_PIN}")
+    logger.info(f"LED count: {LED_COUNT}")
 
-    signal = HardwareChecker(BUTTON_GPIO)
-    signal.run()
+    checker = HardwareChecker(BUTTON_GPIO)
+    checker.run()

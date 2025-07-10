@@ -2,23 +2,28 @@
 
 import time
 import RPi.GPIO as GPIO
+from duckquest.utils.logger import setup_logger
+
+logger = setup_logger(__name__)
+
 
 def setup_gpio(pin: int) -> None:
     """Configure the GPIO pin for input with internal pull-up."""
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    logger.info(f"GPIO pin {pin} configured for button input (pull-up enabled).")
 
 
 def wait_for_button(pin: int) -> None:
     """
     Continuously monitor the button pin.
-    Print press/release events and duration.
+    Log press/release events and duration.
     """
     press_count = 0
     is_pressed = False
     press_start_time = None
 
-    print(f"Monitoring GPIO pin {pin} for button input (Ctrl+C to stop)...")
+    logger.info(f"Monitoring GPIO pin {pin} for button input (Ctrl+C to stop)...")
 
     try:
         while True:
@@ -26,21 +31,25 @@ def wait_for_button(pin: int) -> None:
                 if not is_pressed:
                     is_pressed = True
                     press_start_time = time.time()
-                    print("Button pressed.")
+                    logger.info("Button pressed.")
             else:
                 if is_pressed:
                     is_pressed = False
                     press_duration = time.time() - press_start_time
                     press_count += 1
-                    print(f"Button released. Duration: {press_duration:.3f} seconds")
-                    print(f"Total presses: {press_count}")
+                    logger.info(f"Button released. Duration: {press_duration:.3f}s")
+                    logger.info(f"Total presses: {press_count}")
             time.sleep(0.01)
+
     except KeyboardInterrupt:
-        print("\nTest interrupted by user.")
+        logger.warning("Test interrupted by user (KeyboardInterrupt).")
+    except Exception as e:
+        logger.exception("Unexpected error during button monitoring.")
+        raise
     finally:
         GPIO.cleanup()
-        print("GPIO cleanup complete.")
-        print(f"Total button presses: {press_count}")
+        logger.info("GPIO cleanup complete.")
+        logger.info(f"Total button presses recorded: {press_count}")
 
 
 def run_checker(gpio_pin: int = 17) -> None:
