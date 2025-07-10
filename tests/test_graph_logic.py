@@ -1,8 +1,12 @@
 import pytest
+from duckquest.utils.logger import setup_logger
+
+logger = setup_logger(__name__)
 
 
 def test_initial_state(logic):
     """Check initial state of GraphLogic"""
+    logger.info("Testing initial state of GraphLogic")
     assert logic.current_node == "A1"
     assert logic.start_node == "A1"
     assert logic.end_node == "Q2"
@@ -56,6 +60,7 @@ def test_calculate_score_optimal(logic):
     """Test score is 100% when user path matches optimal path"""
     optimal_path = logic.graph.shortest_path("A1", "Q2")
     if not optimal_path or len(optimal_path) < 2:
+        logger.warning("No valid path between A1 and Q2 — skipping")
         pytest.skip("No valid path between A1 and Q2")
     logic.selected_path = optimal_path
     logic.user_path_edges = list(zip(optimal_path, optimal_path[1:]))
@@ -77,6 +82,7 @@ def test_check_shortest_path_success(logic):
     """Test feedback when shortest path is found"""
     path = logic.graph.shortest_path("A1", "Q2")
     if not path or len(path) < 2:
+        logger.warning("No valid path between A1 and Q2 — skipping")
         pytest.skip("No valid path between A1 and Q2")
     logic.selected_path = path
     logic.user_path_edges = list(zip(path, path[1:]))
@@ -89,8 +95,8 @@ def test_check_shortest_path_failure(logic):
     """Ensure non-optimal paths yield lower scores and correct feedback."""
     path = logic.graph.shortest_path("A1", "Q2")
     if not path or len(path) < 4:
-        print(f"[SKIPPED] Path too short: {path}")
-        pytest.skip("Path too short to test detour behavior.")
+        logger.warning("Path too short to test detour behavior — skipping")
+        pytest.skip("Path too short to test detour behavior")
 
     debug_info = {}
     used_reverse = False
@@ -143,8 +149,8 @@ def test_check_shortest_path_failure(logic):
                 index = len(path) - rev_index - 2
 
         if not bad_path:
-            print("[SKIPPED] No valid detour found")
-            pytest.skip("No valid suboptimal detour found — skipping test.")
+            logger.warning("No valid suboptimal detour found — skipping")
+            pytest.skip("No valid suboptimal detour found")
 
         logic.selected_path = bad_path
         logic.user_path_edges = list(zip(bad_path, bad_path[1:]))
@@ -167,7 +173,7 @@ def test_check_shortest_path_failure(logic):
         assert "not the shortest route" in msg
 
     except AssertionError as e:
-        print("\n[FAILURE DEBUG INFO]")
+        logger.error("Test failed — debug info follows:")
         for k, v in debug_info.items():
-            print(f" - {k.replace('_', ' ').capitalize()}: {v}")
+            logger.error(f"{k}: {v}")
         raise
