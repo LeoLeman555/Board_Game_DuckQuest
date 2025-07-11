@@ -16,10 +16,10 @@ subprocess.run([sys.executable, "-m", "pip", "install", "--upgrade", "pip"], che
 
 # List of dependencies
 common_requirements = [
-    "matplotlib==3.10.0",
-    "networkx==3.4.2",
-    "pygame==2.6.1",
-    "pytest==8.0.0",
+    "matplotlib~=3.10",
+    "networkx~=3.4",
+    "pygame~=2.6",
+    "pytest~=8.0",
 ]
 
 # Add Raspberry Pi-specific dependencies if necessary
