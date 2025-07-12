@@ -2,17 +2,20 @@
 
 ![Logo](./duckquest/assets/images/logo.png)
 
-*"Embark on a journey to teach children algorithmic thinking through a fun and interactive board game!"*
-
 DuckQuest is an educational game created within a school project. It is aimed at young children and allows them to learn to think like an algorithm in order to understand how these work. We achieve this by asking them to find the shortest route through a graph, just as a Dijkstra algorithm would.
 
 ## Table of Contents
 
 - [Overview](#overview)
-- [Setup](#setup)
+- [Dependencies](#dependencies)
+- [Hardware Requirements](#hardware-requirements)
+- [Execution Modes](#execution-modes)
 - [Installation](#installation)
 - [Run](#run)
+- [Project Structure](#project-structure)
+- [Logging](#logging)
 - [Tests](#tests)
+- [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
 
@@ -22,25 +25,35 @@ DuckQuest is an educational game created within a school project. It is aimed at
 In DuckQuest, the graph is represented as a network of routes around a pond. Children guide a duck along the shortest path using physical buttons for graph nodes and LED strips for graph edges. A Raspberry Pi powers and controls the setup. 
 
 ### Example Visualization
-Below is a sample graph with nodes and edges:
+The following graph represents the playground used in DuckQuest.
+
+Each node is a possible location for the duck, and each edge represents a path with a specific weight, visualized by its color.
+
+The goal is to help the duck travel from A1 (start) to Q2 (goal) by choosing the shortest path — just like Dijkstra's algorithm would do.
 
 ![Sample graph](./duckquest/assets/images/sample_graph.png)
 
-## Setup
+Edge color legend:
+| Weight |    Color   | Meaning                    |
+|--------|------------|----------------------------|
+|    1   |    Green   | Fastest, most optimal path |
+|    2   | Bright-Green | Still efficient            |
+|    3   |   Yellow   |	Moderate path              |
+|    4   |   Orange   |	Slower                     |
+|    5   |     Red    |	Longest, to be avoided     |
 
-### Graph Edge Colors
-The LED strips light up in different colors to represent edge weights:
+## Dependencies
 
-| Weight         | Color         |
-|----------------|---------------|
-| 1              | Green         |
-| 2              | Bright-Green  |
-| 3              | Yellow        |
-| 4              | Orange        |
-| 5              | Red           |
-| Selected Path  | Cyan          |
+The project uses the following main libraries:
 
-### Hardware Requirements
+- `matplotlib` – for visualizing the graph
+- `networkx` – for graph logic and shortest path calculations
+- `pygame` – for background music
+- `RPi.GPIO` – for button input (Raspberry Pi only)
+- `rpi_ws281x` – for controlling addressable LEDs (Raspberry Pi only)
+- `tkinter` – for GUI (included with Python)
+
+## Hardware Requirements
 To build the DuckQuest board game, you need the following components:
 
 - Complete Raspberry Pi kit
@@ -49,15 +62,25 @@ To build the DuckQuest board game, you need the following components:
 - 5V Power Supply for powering the LED strip
 - Jumper wires
 
+## Execution Modes
+
+DuckQuest can run in two modes:
+
+- **Hardware mode (Raspberry Pi)**  
+  Real GPIO pins control the LED strips and buttons.
+
+- **Mock mode (Windows/macOS/Linux)**  
+  The hardware is replaced with mock interfaces and visual output.
+
+The system auto-detects the environment at runtime.
+
 ## Installation
 
 ### Prerequisites
 
->⚠️ **Warning:** This project is designed for Raspberry Pi. If you run on another Linux system, some features (like GPIO) may not work.
+If you run in Hardware Mode ensure you have the following software installed on your raspberry:
 
-Ensure you have the following software installed on your raspberry:
-
-- [Python 3.6+](https://www.python.org/)
+- [Python 3.11+](https://www.python.org/)
 - [Git](https://git-scm.com/)
 - An active graphical interface (like X11) – **required for running the game UI**
 
@@ -100,18 +123,51 @@ Ensure you have the following software installed on your raspberry:
 >  
 > The `install.py` script ensures that both `RPi.GPIO` and `rpi_ws281x` are installed only if the script detects a Raspberry Pi. This makes the installation process more flexible and prevents errors on unsupported platforms.
 
-6. You are fine !
-
 ## Run
 To launch the game, use the following command:
 ```bash
 sudo -E $(which python) -m duckquest.main
 ```
 
+> `sudo` is required to access GPIO and PWM devices on Raspberry Pi.
+
+
+## Project Structure
+
+```plaintext
+duckquest/
+├── graph/         # Graph logic, UI components, and Matplotlib rendering
+├── hardware/      # GPIO control for buttons and LED strips (with mocks)
+├── audio/         # Background music and sound effects manager
+├── utils/         # Helper functions and centralized logging system
+├── main.py        # Main entry point to launch the game
+
+docs/              # Technical documentation
+logs/              # Generated logs (console + file logging system)
+scripts/           # Manual testing tools for hardware (GPIO, LEDs)
+tests/             # Unit and manual tests using Pytest
+```
+
+## Logging
+
+All modules use structured logging, with outputs going to the console and into a file. See [`docs/logging.md`](./docs/logging.md) for details.
+
 ## Tests
 
-Detailed test instructions are available in [docs/tests.md](docs/tests.md).
+All test instructions (unit, UI, and hardware) are documented in [`docs/tests.md`](./docs/tests.md).
 
+## Contributing
+
+Want to help improve DuckQuest? Contributions are welcome!
+
+- Fork the repository
+- Create a feature branch (`feat/your-feature`)
+- Make sure tests pass (`pytest`)
+- Open a Pull Request
+
+> Contribution templates and CI are being added in future versions.
+
+If you like the project, consider giving it a ⭐️ on GitHub — it really helps!
 
 ## License
 
@@ -120,4 +176,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## Contact
 
 For any questions or feedback, feel free to contact me:
-- **Léo Leman** : [My GitHub Profile](https://github.com/LeoLeman555)
+
+- GitHub: [LeoLeman555](https://github.com/LeoLeman555)
+- Email: leo.leman555@gmail.com
