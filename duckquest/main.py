@@ -1,3 +1,5 @@
+"""Main entry point to launch the DuckQuest game."""
+
 import platform
 from duckquest.utils.helpers import is_raspberry_pi
 from duckquest.utils.logger import setup_logger
@@ -6,7 +8,7 @@ logger = setup_logger(__name__)  # Initialize module-level logger
 
 
 def main():
-    """Main entry point for Duck Quest."""
+    """Initialize and start the DuckQuest game."""
     OS_NAME = platform.system()
     ON_RASPBERRY_PI = is_raspberry_pi()
 

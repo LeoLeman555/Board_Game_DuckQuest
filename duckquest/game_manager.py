@@ -1,3 +1,8 @@
+"""Main controller that manages the overall game state and interactions.
+
+This module coordinates the graph logic, UI rendering, physical hardware (buttons and LEDs), and audio manager to provide a cohesive game experience.
+"""
+
 from tkinter import *
 from tkinter import messagebox
 from duckquest.graph.manager import GraphManager

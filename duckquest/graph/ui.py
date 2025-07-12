@@ -1,3 +1,8 @@
+"""Tkinter-based user interface for interacting with the graph.
+
+This module defines the GUI layout, buttons, difficulty selector, and integrates with the renderer for dynamic graph updates.
+"""
+
 import json
 import tkinter as tk
 import matplotlib.pyplot as plt

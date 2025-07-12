@@ -1,3 +1,8 @@
+"""LED strip controller for WS2812 addressable LEDs.
+
+Provides animation effects and scoring feedback for DuckQuest using PWM-controlled LEDs.
+"""
+
 import time
 from rpi_ws281x import PixelStrip, Color
 from duckquest.utils.logger import setup_logger

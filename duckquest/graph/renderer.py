@@ -1,3 +1,8 @@
+"""Graph rendering logic using matplotlib.
+
+Handles visual display of the graph, selected paths, shortest paths, and weight-color legends for educational feedback.
+"""
+
 import networkx as nx
 import matplotlib.pyplot as plt
 from duckquest.utils.logger import setup_logger

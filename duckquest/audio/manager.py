@@ -1,3 +1,8 @@
+"""Audio manager for background music and sound effects.
+
+Uses pygame to load, play, pause, and stop music, and control volume for the DuckQuest game.
+"""
+
 import pygame
 from duckquest.utils.logger import setup_logger
 

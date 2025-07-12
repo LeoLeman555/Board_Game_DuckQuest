@@ -1,3 +1,8 @@
+"""Implements the graph logic for user interaction and shortest path validation.
+
+Handles node selection, path construction, and score calculation.
+"""
+
 import networkx as nx
 from duckquest.utils.logger import setup_logger
 

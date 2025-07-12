@@ -1,3 +1,8 @@
+"""Graph data manager for DuckQuest.
+
+Creates and stores the graph structure, assigns weights and colors to edges, and provides utilities for pathfinding and neighbor queries.
+"""
+
 import random
 import networkx as nx
 from duckquest.utils.logger import setup_logger

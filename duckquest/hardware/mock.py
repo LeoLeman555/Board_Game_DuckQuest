@@ -1,3 +1,8 @@
+"""Mock hardware interfaces for non-Raspberry Pi systems.
+
+Provides dummy implementations of ButtonManager and LEDStripManager for development and testing.
+"""
+
 from duckquest.utils.logger import setup_logger
 
 logger = setup_logger(__name__)

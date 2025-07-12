@@ -1,3 +1,8 @@
+"""GPIO-based button manager for Raspberry Pi.
+
+Handles initialization and polling of multiple physical buttons using BCM pin numbers.
+"""
+
 import RPi.GPIO as GPIO
 from duckquest.utils.logger import setup_logger
 

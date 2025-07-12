@@ -1,3 +1,8 @@
+"""Structured logging setup for the DuckQuest project.
+
+Configures a logger that outputs to both the console and a rotating log file, with different logging levels for each output.
+"""
+
 import logging
 import os
 from logging.handlers import RotatingFileHandler
