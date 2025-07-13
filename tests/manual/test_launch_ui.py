@@ -8,6 +8,6 @@ logger = setup_logger(__name__)
 def test_manual_ui_launch():
     """Manual UI launch test for visual inspection."""
     logger.info("Launching manual UI test. Please verify the interface visually.")
-    import launch_ui
+    import tests.launch_ui as launch_ui
 
     launch_ui.launch_ui()

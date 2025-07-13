@@ -1,10 +1,9 @@
 # Duck Quest
 
 [![PyPI](https://img.shields.io/pypi/v/duckquest)](https://pypi.org/project/duckquest/)
-[![License](https://img.shields.io/github/license/LeoLeman555/Board_Game_DuckQuest)](https://github.com/LeoLeman555/Board_Game_DuckQuest/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/LeoLeman555/Board_Game_DuckQuest)](LICENSE)
 [![Status](https://img.shields.io/badge/status-prototype--stable-brightgreen)]()
 ![Code style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)
-[![CI Tests](https://github.com/LeoLeman555/Board_Game_DuckQuest/actions/workflows/tests.yml/badge.svg)](https://github.com/LeoLeman555/Board_Game_DuckQuest/actions/workflows/tests.yml)
 
 Duck Quest is an educational board game designed to teach children algorithmic thinking. Kids help a duck find the shortest path through a graph—mimicking how Dijkstra's algorithm works—via real buttons and LED strips powered by a Raspberry Pi.
 
