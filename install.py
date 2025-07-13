@@ -16,6 +16,7 @@ subprocess.run([sys.executable, "-m", "pip", "install", "--upgrade", "pip"], che
 
 # List of dependencies
 common_requirements = [
+    "black==23.10.1",
     "matplotlib~=3.10",
     "networkx~=3.4",
     "pygame~=2.6",

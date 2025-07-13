@@ -1,0 +1,89 @@
+name: Format Code with Black
+
+on:
+  pull_request:
+    paths:
+      - '**/*.py'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  format-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.head_ref }}  # Ensure the correct branch is checked out
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install Black
+        run: pip install black==23.10.1
+
+      - name: Run Black auto-format
+        run: black .
+
+      - name: Commit changes if needed
+        id: commit_changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git add .
+          
+          if ! git diff --quiet --staged; then
+            git commit -m "style(source): apply Black formatting"
+            echo "changes_made=true" >> $GITHUB_ENV
+          fi
+
+      - name: Determine if PR is from a fork
+        id: check_fork
+        run: |
+          if [[ "${{ github.event.pull_request.head.repo.full_name }}" != "${{ github.repository }}" ]]; then
+            echo "is_fork=true" >> $GITHUB_ENV
+          else
+            echo "is_fork=false" >> $GITHUB_ENV
+          fi
+
+      - name: Push changes if PR is from the same repo
+        if: env.changes_made == 'true' && env.is_fork == 'false'
+        run: |
+          git push origin ${{ github.head_ref }}
+
+      - name: Comment with patch if PR is from a fork
+        if: env.changes_made == 'true' && env.is_fork == 'true'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo, number } = context.issue;
+            const { execSync } = require('child_process');
+
+            const patch = execSync('git diff', { encoding: 'utf8' });
+
+            const message = `### Code Formatting Suggestions  
+            The Python code in this PR does not follow [Black](https://black.readthedocs.io/en/stable/) formatting.  
+            
+            **Suggested changes:**  
+            \`\`\`diff
+            ${patch}
+            \`\`\`
+            
+            _Since this PR comes from a fork, we cannot push changes directly._  
+            _You can apply these changes manually or run \`black .\` before pushing._  
+            
+            _This is an automated suggestion._`;
+
+            github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number: number,
+              body: message
+            });
