@@ -2,8 +2,9 @@
 
 [![PyPI](https://img.shields.io/pypi/v/duckquest)](https://pypi.org/project/duckquest/)
 [![License](https://img.shields.io/github/license/LeoLeman555/Board_Game_DuckQuest)](https://github.com/LeoLeman555/Board_Game_DuckQuest/blob/main/LICENSE)
-![Status](https://img.shields.io/badge/status-development-orange)
+[![Status](https://img.shields.io/badge/status-prototype--stable-brightgreen)]()
 ![Code style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)
+[![CI Tests](https://github.com/LeoLeman555/Board_Game_DuckQuest/actions/workflows/tests.yml/badge.svg)](https://github.com/LeoLeman555/Board_Game_DuckQuest/actions/workflows/tests.yml)
 
 Duck Quest is an educational board game designed to teach children algorithmic thinking. Kids help a duck find the shortest path through a graph—mimicking how Dijkstra's algorithm works—via real buttons and LED strips powered by a Raspberry Pi.
 
@@ -53,6 +54,7 @@ The source code is available [here](https://github.com/LeoLeman555/Board_Game_Du
 
 ## Contact
 
-For questions or feedback, feel free to reach out:
+For any questions or feedback, feel free to contact me:
 
-- GitHub: [Léo Leman](https://github.com/LeoLeman555)
+- GitHub: [LeoLeman555](https://github.com/LeoLeman555)
+- Email: leo.leman555@gmail.com

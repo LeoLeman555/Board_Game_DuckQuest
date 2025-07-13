@@ -2,6 +2,12 @@
 
 ![Logo](./duckquest/assets/images/logo.png)
 
+[![Version](https://img.shields.io/github/v/release/LeoLeman555/Board_Game_DuckQuest)](https://github.com/LeoLeman555/Board_Game_DuckQuest/releases)
+[![License](https://img.shields.io/github/license/LeoLeman555/Board_Game_DuckQuest)](LICENSE)
+[![Status](https://img.shields.io/badge/status-prototype--stable-brightgreen)]()
+![Code style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)
+[![CI Tests](https://github.com/LeoLeman555/Board_Game_DuckQuest/actions/workflows/tests.yml/badge.svg)](https://github.com/LeoLeman555/Board_Game_DuckQuest/actions/workflows/tests.yml)
+
 DuckQuest is an educational game created within a school project. It is aimed at young children and allows them to learn to think like an algorithm in order to understand how these work. We achieve this by asking them to find the shortest route through a graph, just as a Dijkstra algorithm would.
 
 ## Table of Contents
@@ -164,8 +170,6 @@ Want to help improve DuckQuest? Contributions are welcome!
 - Create a feature branch (`feat/your-feature`)
 - Make sure tests pass (`pytest`)
 - Open a Pull Request
-
-> Contribution templates and CI are being added in future versions.
 
 If you like the project, consider giving it a ⭐️ on GitHub — it really helps!
 
