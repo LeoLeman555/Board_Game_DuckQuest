@@ -90,7 +90,16 @@ If you run in Hardware Mode ensure you have the following software installed on 
 - [Git](https://git-scm.com/)
 - An active graphical interface (like X11) – **required for running the game UI**
 
-### Steps for Installation
+To run the game locally, you have two options: installing it via pip or cloning the repository manually.
+
+### Install via pip
+
+The game is published on PyPI, you can install it directly with:
+   ```bash
+   pip install duckquest
+   ```
+
+### Clone the repository
 
 1. Clone the repository on your Raspberry Pi:
    ```bash
@@ -130,13 +139,19 @@ If you run in Hardware Mode ensure you have the following software installed on 
 > The `install.py` script ensures that both `RPi.GPIO` and `rpi_ws281x` are installed only if the script detects a Raspberry Pi. This makes the installation process more flexible and prevents errors on unsupported platforms.
 
 ## Run
-To launch the game, use the following command:
+
+After installing the package, you can launch the game with:
+
+```bash
+duck-quest
+```
+
+On Raspberry Pi, if you're using GPIO and LED hardware, you may need to run with elevated privileges:
 ```bash
 sudo -E $(which python) -m duckquest.main
 ```
 
 > `sudo` is required to access GPIO and PWM devices on Raspberry Pi.
-
 
 ## Project Structure
 
