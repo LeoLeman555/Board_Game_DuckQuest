@@ -1,0 +1,7 @@
+@import url("./base/base.css");
+@import url("./base/footer.css");
+@import url("./base/header.css");
+
+@import url("./components/buttons.css");
+
+@import url("./screens/home.css");

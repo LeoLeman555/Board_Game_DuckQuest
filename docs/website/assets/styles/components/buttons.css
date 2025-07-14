@@ -1,0 +1,25 @@
+.button {
+  display: inline-block;
+  margin-top: -60px;
+  padding: 10px 20px;
+  background-color: var(--light-blue);
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.button-wrapper {
+  text-align: center;
+}
+
+.button:hover {
+  background-color: var(--blue);
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}

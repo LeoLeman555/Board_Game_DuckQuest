@@ -1,0 +1,63 @@
+/* Font */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+/* Colors */
+:root {
+  --white: #ffffff;
+  --maize: #f3ea55ff;
+  --light-yellow: #fdfbdbff;
+  --columbia-blue: #ccd9e1ff;
+  --light-blue: #76a1b9ff;
+  --blue: #6197b8ff;
+  --black: #061624ff;
+  --shadow-light: rgba(255, 255, 255, 0.8);
+  --shadow-dark: rgba(0, 0, 0, 0.1);
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  outline: 1px solid rgba(255, 0, 0, 0.5);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Body */
+body {
+  background-color: var(--light-yellow);
+  color: var(--black);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3rem;
+  color: var(--black);
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 2.5rem;
+  color: var(--black);
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 2rem;
+  color: var(--black);
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 1rem;
+  color: var(--black);
+  margin-bottom: 15px;
+}
