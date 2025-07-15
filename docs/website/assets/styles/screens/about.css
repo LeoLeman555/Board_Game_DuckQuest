@@ -1,0 +1,58 @@
+.doc-container {
+  max-width: 700px;
+  padding: 20px 20px;
+  line-height: 1.7;
+}
+
+.doc-container h1,
+.doc-container h2 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  color: var(--blue);
+}
+
+.doc-container p {
+  margin-bottom: 8px;
+}
+
+.doc-container ul {
+  margin-left: 20px;
+  margin-bottom: 8px;
+}
+
+.doc-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 30px 0;
+  background: var(--light-yellow);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 4px 10px var(--shadow-dark);
+}
+
+.doc-container th,
+.doc-container td {
+  padding: 10px;
+  text-align: left;
+  vertical-align: top;
+  padding: 12px;
+  border-bottom: 2px solid var(--columbia-blue);
+}
+
+.doc-container th {
+  background: var(--blue);
+  color: var(--white);
+}
+
+.doc-container img {
+  max-width: 100%;
+  height: auto;
+  margin: 20px 0;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px var(--shadow-dark);
+}
+
+.note {
+  font-style: italic;
+}

@@ -24,8 +24,185 @@
         </ul>
       </nav>
     </header>
-    <section></section>
-    <h1>About</h1>
+    <main class="doc-container">
+      <h1>About</h1>
+      <section id="why">
+        <h2>Why Duck Quest?</h2>
+        <p>
+          In today's world, digital screens are omnipresent, and children are
+          increasingly exposed to them from a young age. Inspired by The Social
+          Dilemma and its exploration of screen addiction, we wanted to create
+          an educational tool that would teach essential STEM concepts in an
+          engaging way—without relying on a screen. This led us to our guiding
+          question: How can we make STEM learning fun and interactive while
+          keeping it screen-free? <br />
+          <br />
+          Our answer: a board game. More specifically, a game that introduces
+          children to algorithmic thinking through hands-on interaction. We
+          chose to focus on algorithms because they are at the core of
+          computational logic and problem-solving, two fundamental skills in
+          STEM education. Traditional teaching methods often rely on abstract
+          concepts, which can make it difficult for young learners to grasp
+          fundamental principles of graph theory and algorithms. <br />That's
+          why we created Duck Quest.
+        </p>
+      </section>
+
+      <section id="how">
+        <h2>Algorithmic thinking</h2>
+        <p>
+          The aim of Duck Quest is to teach young people algorithmic thinking.
+          It encourages logical reasoning and helps them explore different
+          possibilities using Dijkstra’s algorithm, which calculates the
+          shortest path in a graph. <br />
+          <br />
+          This project was developed as part of a European Section Engineering
+          Sciences class. Our goal was to introduce children to STEM subjects
+          through a screen-free game. To tackle this challenge, we used
+          addressable LED strips and push buttons to emulate a graph, where LEDs
+          represent the edges and buttons serve as the nodes. <br />
+          <span class="note"
+            >(European section engineering sciences is an optional class in
+            French schools which allows us to learn engineering sciences and
+            project management while speaking English.)</span
+          >
+          <br />
+          <br />
+          However, we knew that an abstract mathematical concept alone wouldn’t
+          be enough to capture children’s attention. Learning is most effective
+          when it’s engaging, intuitive, and fun. That’s why we decided to
+          incorporate a storyline—one that would turn a logical puzzle into an
+          immersive adventure.
+        </p>
+      </section>
+
+      <section id="story">
+        <h2>The story behind the game</h2>
+        <p>
+          In Duck Quest, players help a small duck navigate across a pond,
+          finding the safest and most efficient path. This simple yet relatable
+          narrative transforms an abstract algorithm into a tangible challenge:
+          rather than just calculating shortest paths in a graph, children
+          instinctively understand that their goal is to help the duck reach its
+          destination. <br /><br />The story also serves a visual and emotional
+          purpose: <br />
+          <br />
+        </p>
+        <ul>
+          <li>
+            It brings color and life to the board—a yellow duck, a blue pond,
+            and green grass—making the game more inviting and engaging.
+          </li>
+          <li>
+            It makes the learning process more natural: instead of focusing on
+            numbers and edges, children focus on guiding their duck, developing
+            algorithmic thinking without even realizing it.
+          </li>
+        </ul>
+        <p>
+          <br />By blending education with storytelling, Duck Quest turns a
+          theoretical concept into an interactive and meaningful learning
+          experience.
+        </p>
+      </section>
+
+      <section>
+        <h2>Skills Developed</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Skills Developed</th>
+              <th>Explanation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="3"><strong>Algorithmic Thinking</strong></td>
+              <td>Understanding algorithms</td>
+              <td>
+                The child learns about Dijkstra's algorithm and optimal paths.
+              </td>
+            </tr>
+            <tr>
+              <td>Problem-solving</td>
+              <td>
+                Finding the best path requires testing different solutions.
+              </td>
+            </tr>
+            <tr>
+              <td>Logical and structured reasoning</td>
+              <td>The child organizes their thoughts to solve the puzzle.</td>
+            </tr>
+            <tr>
+              <td rowspan="2"><strong>Mathematics & STEM</strong></td>
+              <td>Graph theory and networks</td>
+              <td>
+                The child manipulates a graph (buttons = nodes, LEDs = edges).
+              </td>
+            </tr>
+            <tr>
+              <td>Distance concepts and optimization</td>
+              <td>They must choose the shortest and safest route.</td>
+            </tr>
+            <tr>
+              <td rowspan="2"><strong>Motor Skills & Interaction</strong></td>
+              <td>Hand-eye coordination</td>
+              <td>
+                They physically interact with the board, buttons, and LEDs.
+              </td>
+            </tr>
+            <tr>
+              <td>Tactile experience and manipulation</td>
+              <td>
+                Learning happens through hands-on interaction instead of
+                screens.
+              </td>
+            </tr>
+            <tr>
+              <td rowspan="2"><strong>Curiosity & Autonomy</strong></td>
+              <td>Exploration and experimentation</td>
+              <td>They test multiple strategies to find what works best.</td>
+            </tr>
+            <tr>
+              <td>Independent learning</td>
+              <td>The game encourages self-thinking and discovery.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="development">
+        <h2>Development</h2>
+        <p>
+          After quite considerable development costs, we are now at the
+          prototyping phase. We have a nearly finished product constructed of
+          cardboard and hot glue. This prototype runs off of a Raspberry Pi 3B,
+          which explains a large part of the development costs, but it also
+          necessitated a 1 meter strip of addressable LEDs, which, surprisingly
+          costly, made up the other main constituent of the price tag. The game
+          is currently fully programmed and playable on a computer screen.
+        </p>
+      </section>
+
+      <section id="team">
+        <h2>Who are we?</h2>
+        <p>
+          We are two friends from a French lycée in Alsace, near the German and
+          Swiss borders. Passionate about engineering and design, we teamed up
+          to create Duck Quest, combining our skills to develop an engaging and
+          educational board game. <br />
+          <br />
+          One of us focused on hardware and software programming, designing the
+          logic behind the game, implementing Dijkstra’s algorithm, and ensuring
+          smooth interaction between the Raspberry Pi, LEDs, and buttons.
+          <br />The other took charge of design and 3D representation, crafting
+          the board's visuals, developing the game’s aesthetic, and making the
+          learning experience as immersive as possible.
+        </p>
+      </section>
+    </main>
+
     <footer>
       <div class="footer-container">
         <!-- About -->
@@ -69,5 +246,6 @@
         &copy; 2025 DuckQuest – All rights reserved.
       </div>
     </footer>
+    <script src="../assets/js/main.js"></script>
   </body>
 </html>
