@@ -12,6 +12,11 @@
   color: var(--blue);
 }
 
+.doc-container h3 {
+  margin-bottom: 8px;
+  color: var(--blue);
+}
+
 .doc-container p {
   margin-bottom: 8px;
 }
