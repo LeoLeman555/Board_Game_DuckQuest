@@ -24,7 +24,253 @@
         </ul>
       </nav>
     </header>
-    <h1>The Game</h1>
+    <main class="doc-container">
+      <h1>The Game</h1>
+      <h2>How to Play</h2>
+      <h3>What is DuckQuest?</h3>
+      <p>
+        DuckQuest is a screen-free, interactive board game designed to teach
+        children how to think algorithmically. Players guide a duck across a
+        physical board made of buttons and LEDs, solving logic puzzles based on
+        pathfinding. Designed for use at home or in classrooms, DuckQuest turns
+        abstract STEM concepts into a fun, hands-on experience.
+      </p>
+      <h3>Game Objective</h3>
+      <p>
+        The goal of the game is to help the duck reach its destination using the
+        most efficient path possible. Each level is a new graph, with the start
+        and end points automatically selected by the game. The challenge: use
+        logic and observation to find the path with the lowest total cost,
+        avoiding inefficient or dangerous routes (indicated by red or orange
+        LEDs).
+      </p>
+      <p>The game board consists of:</p>
+      <ul>
+        <li>Physical buttons (nodes of a graph)</li>
+        <li>Colored LEDs (edges connecting the buttons)</li>
+        <li>
+          A Raspberry Pi that controls everything behind the scenes. (See the
+          how-it-works section for more details)
+        </li>
+      </ul>
+      <p>
+        When powered on, the system highlights the starting nodes in green, sets
+        the difficulty level (via pre-programmed configurations) and lights up
+        all available paths with their associated weights shown through LED
+        colors.
+      </p>
+      <p>
+        There is no phone, no screen (in the hardware mode not with only the
+        UI), just the board and your mind.
+      </p>
+      <h3>Rules</h3>
+      <p>
+        The game begins when the player presses the designated starting node. To
+        build a path, the player selects one button after another, effectively
+        tracing a route across the graph. Each valid connection is confirmed by
+        a cyan LED, which lights up between the two selected buttons, indicating
+        that a segment of the path has been selected.
+      </p>
+      <p>
+        To be considered valid, the path must meet the following conditions:
+      </p>
+      <ul>
+        <li>
+          <strong>Continuity</strong>: each node must be directly connected to
+          the previous one—no skipping or jumping across the board.
+        </li>
+        <li>
+          <strong>Efficiency</strong>: the total weight of the path
+          matters—lower weights lead to better scores.
+        </li>
+        <li>
+          <strong>Correct endpoints</strong>: the path must start at the
+          predefined start node (e.g., A1) and end at the target node (e.g.,
+          Q2).
+        </li>
+      </ul>
+      <p>
+        When the player believes they have reached the destination using the
+        best possible route, they press the “Check your path” button to validate
+        their selection.
+      </p>
+      <p>Additional rules and controls include:</p>
+      <ul>
+        <li>A node cannot be selected more than once in a single path.</li>
+        <li>Invalid selections are not recorded.</li>
+        <li>
+          If a mistake is made:
+          <ul>
+            <li>Use Undo to remove the last selected node.</li>
+            <li>
+              Use Reset selection to clear the entire path and start over.
+            </li>
+          </ul>
+        </li>
+        <li>
+          A Help button is always available for assistance during the game.
+        </li>
+      </ul>
+      <h3>Scoring & Feedback</h3>
+      <p>
+        The game compares the player’s solution with the optimal path
+        (calculated using Dijkstra’s algorithm). The final score is given as a
+        percentage of optimality. Visual and auditory feedback helps reinforce
+        learning. The goal isn’t just to win, but to improve decision-making and
+        reasoning.
+      </p>
+      <h3>Replayability</h3>
+      <p>
+        Each time the game starts, a new set of weights is randomly generated
+        across the same fixed graph. This ensures that even though the board
+        layout never changes, the optimal path always does. Children can replay
+        the game countless times and still face new challenges with every round.
+      </p>
+      <p>
+        To keep the experience engaging over time, DuckQuest introduces a
+        difficulty slider ranging from level 1 to 11. Each level adds new
+        possible weights to the edges, making it harder to find the most
+        efficient path.
+      </p>
+      <p>
+        At level 1, only one weight is used across the board—making the puzzle
+        very predictable. But as the level increases, more weights are
+        introduced (including high-cost ones), forcing players to think more
+        critically and analyze more complex trade-offs.
+      </p>
+      <p>
+        Here is how each difficulty level determines the set of weights used:
+      </p>
+      <table class="difficulty-table">
+        <thead>
+          <tr>
+            <th>Difficulty</th>
+            <th>Weights Used</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>1, 5</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>1, 4</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>1, 3</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>1, 2</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>1, 3, 5</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>1, 4, 5</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>1, 2, 5</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>1, 3, 4, 5</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>1, 2, 3, 5</td>
+          </tr>
+          <tr>
+            <td>11</td>
+            <td>1, 2, 3, 4, 5</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        This dynamic system increases the game’s longevity and learning depth,
+        adapting to the player's skill progression.
+      </p>
+      <h2>Guided Example</h2>
+      <p>
+        Let’s walk through a complete example of how a player might guide the
+        duck from the starting node A1 to the destination node Q2 using the
+        shortest possible path.
+      </p>
+      <p>
+        We begin at A1, which is the starting point. From there, we want to
+        reach Q2, located on the opposite side of the graph. The key objective
+        is to avoid high-cost edges, which are indicated by red and orange
+        lines.
+      </p>
+      <img src="../assets/images/guided_example1.png" alt="" />
+      <p>
+        Instead of heading toward C1 or B1—both connected by red edges—we choose
+        D1, which offers a low-cost connection. Once selected, the game visually
+        confirms the move by changing the edge color from green to cyan,
+        signaling that the path has been chosen.
+      </p>
+      <p>
+        From D1, we consider B1 or G1. Both have low-cost paths, but B1 leads to
+        several red paths later on. To avoid that, we choose G1 and then move
+        forward to M1.
+      </p>
+      <p>
+        At M1, we face two options: go backward toward F1 via an orange edge or
+        move forward toward V1 via a green edge. Clearly, V1 is the better
+        choice.
+      </p>
+      <p>
+        After selecting V1, we continue toward W1, even though the edge is
+        orange—because it still offers a better strategic position. From W1, we
+        again have a decision: step back to N1 through another orange path or go
+        forward to D2 using a green one. We choose D2.
+      </p>
+      <p>
+        From there, we proceed to C2, where we’re offered two paths: up to B2 or
+        across to L2. The first path leads to two red edges shortly after, so we
+        go with L2, which only has one red path ahead.
+      </p>
+      <p>
+        From L2, we move upward to K2 using an orange edge—less ideal, but still
+        better than the red alternative. Then we must choose the final route to
+        the destination:
+      </p>
+      <ul>
+        <li>
+          Option 1: K2 → O2 → Q2, with edge weights 3 (yellow) and 2 (bright
+          green) → total cost: 5
+        </li>
+        <li>
+          Option 2: K2 → M2 → N2 → Q2, with weights 1 (green), 2 (bright green),
+          and 1 (green) → total cost: 4
+        </li>
+      </ul>
+      <p>
+        The second option is clearly better, even though it involves more nodes.
+        This demonstrates that the shortest path in terms of cost is not always
+        the one with the fewest steps.
+      </p>
+      <p>
+        Once we reach Q2, we press the Check your path button. The game
+        calculates the total cost and compares it to the optimal path. Since our
+        selection matches the best possible route, we receive a 100% score and
+        earn maximum points.
+      </p>
+      <img src="../assets/images/guided_example2.png" alt="" />
+      <p>
+        This walkthrough shows how logic, observation, and experimentation come
+        together in every game of DuckQuest.
+      </p>
+    </main>
     <footer>
       <div class="footer-container">
         <!-- About -->

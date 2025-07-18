@@ -9,12 +9,12 @@
   margin-top: 10px;
   margin-bottom: 10px;
   font-weight: 700;
-  color: var(--blue);
+  color: var(--black);
 }
 
 .doc-container h3 {
   margin-bottom: 8px;
-  color: var(--blue);
+  color: var(--black);
 }
 
 .doc-container p {
