@@ -24,7 +24,137 @@
         </ul>
       </nav>
     </header>
-    <h1>Get the project</h1>
+
+    <main class="doc-container">
+      <h1>Get the Project</h1>
+
+      <section id="source" class="download-section">
+        <h2>Source Code</h2>
+        <p>DuckQuest is fully open source and available on GitHub:</p>
+        <ul>
+          <li>
+            GitHub repository:
+            <a
+              href="https://github.com/LeoLeman555/Board_Game_DuckQuest"
+              target="_blank"
+            >
+              github.com/LeoLeman555/Board_Game_DuckQuest
+            </a>
+          </li>
+          <li>
+            Latest release:
+            <a
+              href="https://github.com/LeoLeman555/Board_Game_DuckQuest/releases"
+              target="_blank"
+            >
+              Releases page
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <section id="installation" class="download-section">
+        <h2>Installation</h2>
+        <p>You can install DuckQuest in two ways:</p>
+
+        <h3>Option 1 — Install via PyPI</h3>
+        <p>
+          If you only want to play the game without modifying the source and
+          without using physical hardware, install it directly from PyPI:
+        </p>
+        <pre><code>pip install duckquest</code></pre>
+        <p>
+          This will install the game along with its platform-specific
+          dependencies.<br />
+          <strong>⚠️ Note:</strong> The PyPI version is intended for UI-only
+          use. It does not support GPIO hardware, as it lacks elevated
+          permissions and conditional hardware dependencies required on
+          Raspberry Pi.
+        </p>
+
+        <h3>Option 2 — Manual Clone</h3>
+        <p>
+          If you want to use physical components (buttons and LEDs on Raspberry
+          Pi), or if you plan to modify the codebase, clone the project
+          manually.
+        </p>
+
+        <ol>
+          <li>
+            Clone the repository:
+            <pre><code>git clone https://github.com/LeoLeman555/Board_Game_DuckQuest.git
+cd Board_Game_DuckQuest</code></pre>
+          </li>
+          <li>
+            (Recommended) Create and activate a virtual environment:
+            <pre><code>python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate</code></pre>
+          </li>
+          <li>
+            Run the install script:
+            <pre><code>python install.py</code></pre>
+            <p>The <code>install.py</code> script will:</p>
+            <ul>
+              <li>Detect if you're on a Raspberry Pi.</li>
+              <li>
+                Install Raspberry Pi-specific libraries such as RPi.GPIO and
+                rpi_ws281x only when needed.
+              </li>
+              <li>Avoid installation errors on other platforms.</li>
+            </ul>
+          </li>
+        </ol>
+      </section>
+
+      <section id="run" class="download-section">
+        <h2>Run the Game</h2>
+
+        <h3>UI-Only Mode (No Hardware)</h3>
+        <p>
+          If you installed DuckQuest via PyPI, you can launch the game in
+          UI-only mode with:
+        </p>
+        <pre><code>duck-quest</code></pre>
+        <p>
+          This mode uses simulated buttons and LEDs through a graphical
+          interface. It works on Windows, macOS, and Linux, and does not require
+          GPIO hardware.<br />
+          <strong>⚠️ Note:</strong> The PyPI version does not support physical
+          hardware due to limited permissions and dependency constraints.
+        </p>
+
+        <h3>Hardware Mode (Raspberry Pi with GPIO)</h3>
+        <p>To play with the full physical setup, you'll need:</p>
+        <ul>
+          <li>Raspberry Pi 3B+</li>
+          <li>Push buttons (for graph nodes)</li>
+          <li>WS2812 RGB LED strip (for graph edges)</li>
+          <li>External 5V power supply (for the LED strip)</li>
+          <li>Breadboard and jumper wires</li>
+        </ul>
+        <p>To run DuckQuest with real buttons and LED strips, you must:</p>
+        <ol>
+          <li>Install the game via manual clone (see above)</li>
+          <li>
+            Run it with elevated privileges:
+            <pre><code>sudo -E $(which python) -m duckquest.main</code></pre>
+            <p>
+              <strong>Note:</strong> sudo is required to access GPIO and PWM
+              devices on Raspberry Pi.
+            </p>
+          </li>
+        </ol>
+      </section>
+
+      <section id="license" class="download-section">
+        <h2>License</h2>
+        <p>
+          DuckQuest is released under the MIT License, giving you full freedom
+          to use, modify, and share the project.
+        </p>
+      </section>
+    </main>
+
     <footer>
       <div class="footer-container">
         <!-- About -->
