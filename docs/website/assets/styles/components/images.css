@@ -1,0 +1,15 @@
+.centered-image {
+  text-align: center;
+}
+
+.centered-image img {
+  display: block;
+  margin: 0 auto;
+}
+
+.centered-image figcaption {
+  font-size: 0.8rem;
+  font-style: italic;
+  margin: 0 0 1.5rem 0;
+  padding: 0;
+}

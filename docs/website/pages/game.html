@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../assets/styles/main.css" />
     <link rel="shortcut icon" href="../assets/icons/favicon.ico" />
   </head>
+
   <body>
     <header>
       <nav>
@@ -35,6 +36,15 @@
         pathfinding. Designed for use at home or in classrooms, DuckQuest turns
         abstract STEM concepts into a fun, hands-on experience.
       </p>
+      <figure class="centered-image">
+        <img
+          src="../assets/images/physical_board_1.png"
+          alt="DuckQuest physical board diagram"
+        />
+        <figcaption>
+          DuckQuest physical game board with buttons and LEDs
+        </figcaption>
+      </figure>
       <h3>Game Objective</h3>
       <p>
         The goal of the game is to help the duck reach its destination using the
@@ -74,26 +84,81 @@
       <p>
         To be considered valid, the path must meet the following conditions:
       </p>
-      <ul>
-        <li>
-          <strong>Continuity</strong>: each node must be directly connected to
-          the previous one—no skipping or jumping across the board.
-        </li>
-        <li>
-          <strong>Efficiency</strong>: the total weight of the path
-          matters—lower weights lead to better scores.
-        </li>
-        <li>
-          <strong>Correct endpoints</strong>: the path must start at the
-          predefined start node (e.g., A1) and end at the target node (e.g.,
-          Q2).
-        </li>
-      </ul>
+      <table class="conditions-table">
+        <thead>
+          <tr>
+            <th>Valid</th>
+            <th>Invalid</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <img
+                src="../assets/images/condition-continuity-valid.png"
+                alt="Valid continuity"
+              />
+              <p>Each node is directly connected to the previous one</p>
+            </td>
+            <td>
+              <img
+                src="../assets/images/condition-continuity-invalid.png"
+                alt="Invalid continuity"
+              />
+              <p>Path skips or jumps nodes</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <img
+                src="../assets/images/condition-efficiency-valid.png"
+                alt="Valid efficiency"
+              />
+              <p>Path has the lowest total cost</p>
+            </td>
+            <td>
+              <img
+                src="../assets/images/condition-efficiency-invalid.png"
+                alt="Invalid efficiency"
+              />
+              <p>Path includes higher cost edges</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <img
+                src="../assets/images/condition-endpoints-valid.png"
+                alt="Valid endpoints"
+              />
+              <p>Path starts and ends at predefined nodes</p>
+            </td>
+            <td>
+              <img
+                src="../assets/images/condition-endpoints-invalid.png"
+                alt="Invalid endpoints"
+              />
+              <p>Wrong start or end node selected</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
       <p>
         When the player believes they have reached the destination using the
         best possible route, they press the “Check your path” button to validate
         their selection.
       </p>
+
+      <!-- Mini-animation GIF: path construction -->
+      <figure class="centered-image">
+        <img
+          src="../assets/images/path_construction.gif"
+          alt="Mini-animation showing step-by-step path construction in cyan"
+        />
+        <figcaption>
+          Step-by-step path construction in cyan using the UI
+        </figcaption>
+      </figure>
+
       <p>Additional rules and controls include:</p>
       <ul>
         <li>A node cannot be selected more than once in a single path.</li>
@@ -132,69 +197,35 @@
         possible weights to the edges, making it harder to find the most
         efficient path.
       </p>
+
+      <!-- Interactive difficulty slider -->
+      <div class="difficulty-slider-container">
+        <!-- Dynamic graph example image -->
+        <figure class="centered-image">
+          <img
+            id="difficultyImage"
+            src="../assets/images/example_difficulty_1.png"
+            alt="Graph example for difficulty level 1"
+          />
+          <figcaption>
+            Example graph for the selected difficulty level
+          </figcaption>
+        </figure>
+
+        <label for="difficultySlider"
+          ><strong>Difficulty Level: </strong
+          ><span id="difficultyValue">1</span></label
+        >
+        <input type="range" id="difficultySlider" min="1" max="11" value="1" />
+        <div id="weightsDisplay">Weights Used: 1</div>
+      </div>
+
       <p>
         At level 1, only one weight is used across the board—making the puzzle
         very predictable. But as the level increases, more weights are
         introduced (including high-cost ones), forcing players to think more
         critically and analyze more complex trade-offs.
       </p>
-      <p>
-        Here is how each difficulty level determines the set of weights used:
-      </p>
-      <table class="difficulty-table">
-        <thead>
-          <tr>
-            <th>Difficulty</th>
-            <th>Weights Used</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>1</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>1, 5</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>1, 4</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>1, 3</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>1, 2</td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td>1, 3, 5</td>
-          </tr>
-          <tr>
-            <td>7</td>
-            <td>1, 4, 5</td>
-          </tr>
-          <tr>
-            <td>8</td>
-            <td>1, 2, 5</td>
-          </tr>
-          <tr>
-            <td>9</td>
-            <td>1, 3, 4, 5</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td>1, 2, 3, 5</td>
-          </tr>
-          <tr>
-            <td>11</td>
-            <td>1, 2, 3, 4, 5</td>
-          </tr>
-        </tbody>
-      </table>
       <p>
         This dynamic system increases the game’s longevity and learning depth,
         adapting to the player's skill progression.
@@ -205,54 +236,63 @@
         duck from the starting node A1 to the destination node Q2 using the
         shortest possible path.
       </p>
+      <img src="../assets/images/guided_example_1.png" alt="" />
       <p>
         We begin at A1, which is the starting point. From there, we want to
         reach Q2, located on the opposite side of the graph. The key objective
         is to avoid high-cost edges, which are indicated by red and orange
         lines.
       </p>
-      <img src="../assets/images/guided_example1.png" alt="" />
+      <img src="../assets/images/guided_example_2.png" alt="" />
       <p>
         Instead of heading toward C1 or B1—both connected by red edges—we choose
         D1, which offers a low-cost connection. Once selected, the game visually
         confirms the move by changing the edge color from green to cyan,
         signaling that the path has been chosen.
       </p>
+      <img src="../assets/images/guided_example_3.png" alt="" />
       <p>
         From D1, we consider B1 or G1. Both have low-cost paths, but B1 leads to
         several red paths later on. To avoid that, we choose G1 and then move
         forward to M1.
       </p>
+      <img src="../assets/images/guided_example_4.png" alt="" />
       <p>
         At M1, we face two options: go backward toward F1 via an orange edge or
         move forward toward V1 via a green edge. Clearly, V1 is the better
         choice.
       </p>
+      <img src="../assets/images/guided_example_5.png" alt="" />
       <p>
         After selecting V1, we continue toward W1, even though the edge is
         orange—because it still offers a better strategic position. From W1, we
         again have a decision: step back to N1 through another orange path or go
         forward to D2 using a green one. We choose D2.
       </p>
+      <img src="../assets/images/guided_example_7.png" alt="" />
       <p>
         From there, we proceed to C2, where we’re offered two paths: up to B2 or
         across to L2. The first path leads to two red edges shortly after, so we
         go with L2, which only has one red path ahead.
       </p>
+      <img src="../assets/images/guided_example_9.png" alt="" />
       <p>
         From L2, we move upward to K2 using an orange edge—less ideal, but still
-        better than the red alternative. Then we must choose the final route to
-        the destination:
+        better than the red alternative.
       </p>
+      <img src="../assets/images/guided_example_10.png" alt="" />
+      <p>Then we must choose the final route to the destination:</p>
       <ul>
         <li>
           Option 1: K2 → O2 → Q2, with edge weights 3 (yellow) and 2 (bright
           green) → total cost: 5
         </li>
+        <img src="../assets/images/guided_example_11.png" alt="" />
         <li>
           Option 2: K2 → M2 → N2 → Q2, with weights 1 (green), 2 (bright green),
           and 1 (green) → total cost: 4
         </li>
+        <img src="../assets/images/guided_example_12.png" alt="" />
       </ul>
       <p>
         The second option is clearly better, even though it involves more nodes.
@@ -265,7 +305,7 @@
         selection matches the best possible route, we receive a 100% score and
         earn maximum points.
       </p>
-      <img src="../assets/images/guided_example2.png" alt="" />
+      <img src="../assets/images/guided_example_13.png" alt="" />
       <p>
         This walkthrough shows how logic, observation, and experimentation come
         together in every game of DuckQuest.
@@ -314,5 +354,6 @@
         &copy; 2025 DuckQuest – All rights reserved.
       </div>
     </footer>
+    <script src="../assets/js/main.js"></script>
   </body>
 </html>

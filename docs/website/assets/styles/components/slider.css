@@ -1,0 +1,16 @@
+.difficulty-slider-container {
+  margin: 1rem 0 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+#difficultySlider {
+  width: 100%;
+}
+
+#weightsDisplay {
+  font-weight: bold;
+  font-size: 1rem;
+}

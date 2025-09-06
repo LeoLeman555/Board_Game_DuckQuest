@@ -1,0 +1,34 @@
+.conditions-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  text-align: center;
+  table-layout: fixed; /* ensures equal column widths */
+}
+
+.conditions-table img {
+  width: 100%;
+  aspect-ratio: 4 / 3; /* ensures consistent 4:3 frame */
+  object-fit: contain; /* keeps full image visible */
+  display: block;
+  margin: 0 auto 0.5rem auto;
+}
+
+/* Background colors for Valid / Invalid columns */
+.conditions-table td:nth-child(1) {
+  background-color: #d4edda; /* light green for Valid */
+}
+
+.conditions-table td:nth-child(2) {
+  background-color: #f8d7da; /* light red for Invalid */
+}
+
+.conditions-table th,
+.conditions-table td {
+  text-align: center;
+}
+
+/* Make image captions italic inside conditions-table */
+.conditions-table td p {
+  font-style: italic;
+}
