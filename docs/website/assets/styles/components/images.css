@@ -13,3 +13,59 @@
   margin: 0 0 1.5rem 0;
   padding: 0;
 }
+
+.schema,
+.schema-dev {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 1rem 0;
+  flex-wrap: nowrap;
+  text-align: center;
+}
+
+.schema-img {
+  width: 180px;
+  height: auto;
+}
+
+.schema-symbol {
+  font-size: 2.5rem;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.schema-graph {
+  width: 300px;
+  height: auto;
+}
+
+.story-composite {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+
+.story-composite .pond {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.story-composite .duck-overlay {
+  position: absolute;
+  width: 80px;
+  bottom: 20%;
+  left: 40%;
+  transform: translateX(-50%);
+}
+
+.duck-overlay {
+  box-shadow: none !important;
+}
+
+.schema-dev .schema-sketch {
+  width: 300px;
+  height: auto;
+}
