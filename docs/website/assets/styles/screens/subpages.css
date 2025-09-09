@@ -61,3 +61,45 @@
 .note {
   font-style: italic;
 }
+.repo-tree-grid {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 1.5rem;
+  background: #1e1e1e;
+  color: var(--light-yellow);
+  padding: 16px 20px;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 14px;
+  line-height: 1.6;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.repo-line {
+  display: contents;
+  white-space: pre;
+  font-variant-ligatures: none;
+}
+
+.repo-line .path {
+  grid-column: 1;
+  white-space: pre;
+}
+
+.repo-line .comment {
+  grid-column: 2;
+  white-space: normal;
+  color: var(--columbia-blue);
+  font-style: italic;
+}
+
+.dir {
+  color: var(--maize);
+  font-weight: 600;
+}
+.file {
+  color: var(--blue);
+}

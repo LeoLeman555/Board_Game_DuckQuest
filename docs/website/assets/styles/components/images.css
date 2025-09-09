@@ -69,3 +69,34 @@
   width: 300px;
   height: auto;
 }
+
+.built-with {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.built-with span {
+  font-weight: bold;
+}
+
+.python-logo {
+  width: 32px;
+  height: auto;
+}
+
+.ui-annotated .ui-legend,
+.board-annotated .board-legend {
+  text-align: left;
+  padding-left: 20px;
+  margin-left: 20px;
+  font-size: 14px;
+  line-height: 0;
+}
+
+.ui-annotated .ui-legend li,
+.board-annotated .board-legend li {
+  margin-bottom: 20px;
+  font-size: 0.8rem;
+  font-style: italic;
+}

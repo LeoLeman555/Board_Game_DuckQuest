@@ -30,13 +30,25 @@
         <h2>Project Architecture</h2>
         <h3>Using Python</h3>
         <p>
-          DuckQuest is built using Python 3.11 and above. Python was chosen for
-          its readability, its widespread use in education, and its powerful
-          ecosystem of scientific and hardware-related libraries. In particular,
-          its support for graph manipulation and GPIO control made it the
-          perfect candidate.
-          <br />
-          <br />
+          DuckQuest is built using
+          <a href="https://www.python.org/" target="_blank"
+            >Python 3.11 and above</a
+          >. Python was chosen for its readability, its widespread use in
+          education, and its powerful ecosystem of scientific and
+          hardware-related libraries. In particular, its support for graph
+          manipulation and
+          <a
+            href="https://sourceforge.net/p/raspberry-gpio-python/wiki/Home/"
+            target="_blank"
+            >GPIO control</a
+          >
+          made it the perfect candidate.
+        </p>
+        <div class="built-with">
+          <span>Built with</span>
+          <img src="../assets/images/python_logo.png" class="python-logo" />
+        </div>
+        <p>
           Since one of DuckQuest’s core goals is educational accessibility,
           Python’s clear syntax and low entry barrier align perfectly with that
           mission.
@@ -48,17 +60,156 @@
           open-source experience. Each module handles a single responsibility.
           This separation allows each part of the project to evolve
           independently, and makes it easier for new contributors to understand
-          the codebase. <br /><br />
-          Repository tree :
+          the codebase.
         </p>
+        <div class="repo-tree-grid">
+          <div class="repo-line">
+            <span class="path"><span class="dir">duckquest/</span></span>
+            <span class="comment"></span>
+          </div>
+
+          <div class="repo-line">
+            <span class="path">├── <span class="dir">assets/</span></span>
+            <span class="comment"
+              ># Static assets (images, icons, styles, etc.)</span
+            >
+          </div>
+          <div class="repo-line">
+            <span class="path"
+              >├── <span class="file">data/rules.json</span></span
+            >
+            <span class="comment"
+              ># JSON file defining game rules and parameters</span
+            >
+          </div>
+          <div class="repo-line">
+            <span class="path">├── <span class="dir">graph/</span></span>
+            <span class="comment"
+              ># Graph logic, UI components, and Matplotlib rendering</span
+            >
+          </div>
+          <div class="repo-line">
+            <span class="path">│ ├── <span class="file">logic.py</span></span>
+            <span class="comment"
+              ># Core graph algorithms and path validation</span
+            >
+          </div>
+          <div class="repo-line">
+            <span class="path">│ ├── <span class="file">manager.py</span></span>
+            <span class="comment"
+              ># High-level graph manager (nodes, edges, weights)</span
+            >
+          </div>
+          <div class="repo-line">
+            <span class="path"
+              >│ ├── <span class="file">renderer.py</span></span
+            >
+            <span class="comment"
+              ># Matplotlib-based rendering of the board/graph</span
+            >
+          </div>
+          <div class="repo-line">
+            <span class="path">│ ├── <span class="file">ui.py</span></span>
+            <span class="comment"
+              ># Tkinter UI layer (menus, buttons, displays)</span
+            >
+          </div>
+
+          <div class="repo-line">
+            <span class="path">├── <span class="dir">hardware/</span></span>
+            <span class="comment"
+              ># GPIO control for buttons and LED strips (with mocks)</span
+            >
+          </div>
+          <div class="repo-line">
+            <span class="path"
+              >│ ├── <span class="file">button_manager.py</span></span
+            >
+            <span class="comment"
+              ># Handles button input (physical or mocked)</span
+            >
+          </div>
+          <div class="repo-line">
+            <span class="path"
+              >│ ├── <span class="file">led_strip_manager.py</span></span
+            >
+            <span class="comment"
+              ># Controls LED strip sequences and colors</span
+            >
+          </div>
+          <div class="repo-line">
+            <span class="path">│ ├── <span class="file">mock.py</span></span>
+            <span class="comment"
+              ># Mock hardware for simulation/testing without Pi</span
+            >
+          </div>
+
+          <div class="repo-line">
+            <span class="path">├── <span class="dir">audio/</span></span>
+            <span class="comment"
+              ># Background music and sound effects manager</span
+            >
+          </div>
+          <div class="repo-line">
+            <span class="path">├── <span class="dir">utils/</span></span>
+            <span class="comment"
+              ># Helper functions and centralized logging system</span
+            >
+          </div>
+          <div class="repo-line">
+            <span class="path"
+              >├── <span class="file">game_manager.py</span></span
+            >
+            <span class="comment"
+              ># High-level orchestrator (game states, rules, flow)</span
+            >
+          </div>
+          <div class="repo-line">
+            <span class="path">├── <span class="file">main.py</span></span>
+            <span class="comment"># Main entry point to launch the game</span>
+          </div>
+
+          <div class="repo-line spacer">
+            <span class="path"> </span><span class="comment"></span>
+          </div>
+
+          <div class="repo-line">
+            <span class="path"><span class="dir">docs/</span></span>
+            <span class="comment"># Technical documentation + website</span>
+          </div>
+          <div class="repo-line">
+            <span class="path"><span class="dir">logs/</span></span>
+            <span class="comment"
+              ># Generated logs (console + file logging system)</span
+            >
+          </div>
+          <div class="repo-line">
+            <span class="path"><span class="dir">scripts/</span></span>
+            <span class="comment"
+              ># Manual testing tools for hardware (GPIO, LEDs)</span
+            >
+          </div>
+          <div class="repo-line">
+            <span class="path"><span class="dir">tests/</span></span>
+            <span class="comment"
+              ># Unit and integration tests (Pytest-based)</span
+            >
+          </div>
+        </div>
+
         <h3>Open Source</h3>
         <p>
           DuckQuest is designed as an educational project. Opening the code to
           the public allows teachers to adapt the game to their classroom needs,
           makers to experiment with their own hardware setups, and the community
           to improve and build upon the original idea. The project is released
-          under the MIT license, which ensures maximum freedom to use, modify,
-          and redistribute the software.
+          under the
+          <a
+            href="https://github.com/LeoLeman555/Board_Game_DuckQuest/blob/main/LICENSE"
+            target="_blank"
+            >MIT license</a
+          >, which ensures maximum freedom to use, modify, and redistribute the
+          software.
         </p>
       </section>
       <section id="modeling" class="how-it-works-section">
@@ -68,9 +219,10 @@
           At the heart of DuckQuest lies a physical, undirected, weighted graph
           with a fixed topology. Each node corresponds to a physical push button
           on the board, and each edge is represented by an LED strip that
-          connects two nodes. <br /><br />
-          The graph is composed of:
+          connects two nodes.
         </p>
+        <img src="../assets/images/duckquest_graph.png" alt="" />
+        <p>The graph is composed of:</p>
         <ul>
           <li>
             44 nodes, named from A1 to Q2, using a letter–number system to
@@ -119,10 +271,7 @@
             </tr>
           </tbody>
         </table>
-        <p>
-          All LED intensities are normalized to maintain visual consistency,
-          regardless of weight.
-        </p>
+        <img src="../assets/images/weighted_graph.png" alt="" />
         <h3>Graph Theory Principles</h3>
         <p>
           Each play session in DuckQuest is, at its core, an exploration of a
@@ -149,7 +298,16 @@
         <h3>Dijkstra’s Algorithm</h3>
         <p>
           To determine the optimal path between two nodes, DuckQuest uses
-          Dijkstra’s algorithm, implemented via the networkx.shortest_path()
+          <a
+            href="https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm"
+            target="_blank"
+            >Dijkstra’s algorithm</a
+          >, implemented via the
+          <a
+            href="https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.shortest_paths.generic.shortest_path.html"
+            target="_blank"
+            >networkx.shortest_path()</a
+          >
           function. The algorithm takes into account the edge weights and
           computes the least-cost path.
         </p>
@@ -176,14 +334,18 @@
         <h2>Hardware Implementation</h2>
         <h3>Core System: The Raspberry Pi</h3>
         <p>
-          DuckQuest is powered by a Raspberry Pi 3B+, which serves as the
-          central unit coordinating the game's logic, user interaction, visual
-          feedback, and sound effects. This choice was driven by the board’s
-          balance between GPIO availability, library compatibility, and
-          affordability. The Pi provides enough computing power to manage
-          real-time input from buttons, drive an addressable LED strip, play
-          background audio, and run a graphical interface—all simultaneously and
-          reliably.
+          DuckQuest is powered by a
+          <a
+            href="https://www.raspberrypi.com/products/raspberry-pi-3-model-b-plus/"
+            target="_blank"
+            >Raspberry Pi 3B+</a
+          >, which serves as the central unit coordinating the game's logic,
+          user interaction, visual feedback, and sound effects. This choice was
+          driven by the board’s balance between GPIO availability, library
+          compatibility, and affordability. The Pi provides enough computing
+          power to manage real-time input from buttons, drive an addressable LED
+          strip, play background audio, and run a graphical interface—all
+          simultaneously and reliably.
         </p>
         <h3>Button Input System</h3>
         <p>
@@ -198,27 +360,18 @@
         <h3>LED Output</h3>
         <p>
           Each edge in the graph is represented by a segment of an RGB LED strip
-          (WS2812, also known as NeoPixel). These LEDs are individually
-          addressable and connected in series, allowing the software to light
-          them up based on the graph's structure and the player's current path.
-          The LEDs are controlled using a specialized Python library,
-          rpi_ws281x, which communicates with the strip over GPIO18—the only pin
-          on the Pi that provides the required PWM signal with precise timing.
-        </p>
-        <h3>Physical Graph Layout</h3>
-        <p>
-          All buttons and LEDs are mounted on a board that visually mirrors the
-          graph’s layout. This design allows children to interact directly with
-          the logical structure of the game in a physical and intuitive way.
-          Each press of a button triggers not only an update in the game’s logic
-          but also a change in the corresponding LED color, reinforcing feedback
-          and engagement.
-        </p>
-        <p>
-          This hardware setup is the physical embodiment of the game’s graph.
-          The Raspberry Pi connects abstract data structures to real-world
-          components—buttons as nodes, LEDs as edges—creating an educational
-          experience that feels tactile, dynamic, and alive.
+          (<a
+            href="https://learn.adafruit.com/adafruit-neopixel-uberguide/overview"
+            target="_blank"
+            >WS2812 / NeoPixel</a
+          >). These LEDs are individually addressable and connected in series,
+          allowing the software to light them up based on the graph's structure
+          and the player's current path. The LEDs are controlled using a
+          specialized Python library,
+          <a href="https://github.com/jgarff/rpi_ws281x" target="_blank"
+            >rpi_ws281x</a
+          >, which communicates with the strip over GPIO18—the only pin on the
+          Pi that provides the required PWM signal with precise timing.
         </p>
       </section>
       <section id="interaction" class="how-it-works-section">
@@ -226,9 +379,15 @@
         <h3>Graphical Interface</h3>
         <p>
           To make DuckQuest accessible even without hardware, a full graphical
-          simulation of the board has been developed using Tkinter and
-          matplotlib. This interface mirrors the physical layout of the board
-          game and displays the nodes and edges in a clean, interactive window.
+          simulation of the board has been developed using
+          <a
+            href="https://docs.python.org/3/library/tkinter.html"
+            target="_blank"
+            >Tkinter</a
+          >
+          and <a href="https://matplotlib.org/" target="_blank">matplotlib</a>.
+          This interface mirrors the physical layout of the board game and
+          displays the nodes and edges in a clean, interactive window.
         </p>
         <p>
           Each node is rendered as a clickable point, and edges are colored
@@ -238,6 +397,22 @@
           difficulty slider adjusts the distribution of edge weights, offering a
           way to scale the challenge dynamically.
         </p>
+        <div class="ui-annotated">
+          <img src="../assets/images/annotated_UI.png" class="ui-image" />
+
+          <ol class="ui-legend">
+            <li>Buttons to modify, validate, or change the path</li>
+            <li>Difficulty bar</li>
+            <li>Score display</li>
+            <li>Node</li>
+            <li>Edge</li>
+            <li>Starting node (A1)</li>
+            <li>Ending node (Q2)</li>
+            <li>Help legend explaining relation between weights and colors</li>
+            <li>Example of a traced path (cyan)</li>
+          </ol>
+        </div>
+
         <p>
           Interactive buttons like Help, Start a graph, Reset selection, Check
           your path, and Solution provide full control over the gameplay. This
@@ -253,6 +428,22 @@
           current path and lights up the corresponding LED in cyan, creating a
           clear visual trail of the journey.
         </p>
+        <div class="board-annotated">
+          <img
+            src="../assets/images/annotated_physical_board.png"
+            class="board-image"
+          />
+
+          <ol class="board-legend">
+            <li>Check your path button</li>
+            <li>Reset selection button</li>
+            <li>Screen displaying score and difficulty</li>
+            <li>Node</li>
+            <li>The Duck</li>
+            <li>Starting node (A1)</li>
+            <li>Ending node (Q2)</li>
+          </ol>
+        </div>
         <p>
           This interaction model is both tactile and intuitive. The player
           builds their solution step by step, with each choice made consciously,
@@ -273,7 +464,8 @@
           to this numerical score, the LED strip is used to visually reward the
           player: a green progression effect celebrates high scores, while
           redder tones reflect suboptimal paths. Sound effects, powered by
-          Pygame, further reinforce the feedback loop, celebrating successes or
+          <a href="https://www.pygame.org/docs/" target="_blank">Pygame</a>,
+          further reinforce the feedback loop, celebrating successes or
           prompting retries.
         </p>
         <p>
@@ -288,33 +480,57 @@
         <h2>Development Workflow</h2>
         <h3>IDE and Practices</h3>
         <p>
-          DuckQuest was developed primarily using Visual Studio Code, with a
-          lightweight and efficient setup. Key extensions such as Pylance,
-          Python, and Black were used to ensure strong typing support, efficient
-          linting, and automatic code formatting. The code adheres strictly to
-          modern Python standards, with consistent 4-space indentation,
-          single-line docstrings, and meaningful inline comments.
+          DuckQuest was developed primarily using
+          <a href="https://code.visualstudio.com/" target="_blank"
+            >Visual Studio Code</a
+          >, with a lightweight and efficient setup. Key extensions such as
+          <a
+            href="https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance"
+            target="_blank"
+            >Pylance</a
+          >, Python, and
+          <a href="https://black.readthedocs.io/en/stable/" target="_blank"
+            >Black</a
+          >
+          were used to ensure strong typing support, efficient linting, and
+          automatic code formatting. The code adheres strictly to modern Python
+          standards, with consistent 4-space indentation, single-line
+          docstrings, and meaningful inline comments.
         </p>
         <p>
           The project follows a clean Git workflow, based around a stable main
-          branch. All commits use the Conventional Commits specification to
-          maintain clarity and semantic meaning.
+          branch. All commits use the
+          <a
+            href="https://www.conventionalcommits.org/en/v1.0.0/"
+            target="_blank"
+            >Conventional Commits</a
+          >
+          specification to maintain clarity and semantic meaning.
         </p>
         <h3>Tooling and Automation</h3>
         <p>
-          Dependency management is handled using a combination of setup.cfg and
-          pyproject.toml, which define the project metadata and build system. To
-          address platform-specific constraints—particularly the fact that some
-          Python packages only run on Raspberry Pi—a custom install.py script
-          was written. This ensures that packages like RPi.GPIO and rpi_ws281x
-          are only installed on compatible hardware, avoiding installation
-          errors on unsupported systems.
+          Dependency management is handled using a combination of
+          <a href="https://packaging.python.org/en/latest/" target="_blank"
+            >setup.cfg and pyproject.toml</a
+          >, which define the project metadata and build system. To address
+          platform-specific constraints—particularly the fact that some Python
+          packages only run on Raspberry Pi—a custom install.py script was
+          written. This ensures that packages like RPi.GPIO and rpi_ws281x are
+          only installed on compatible hardware, avoiding installation errors on
+          unsupported systems.
         </p>
         <p>
-          A little CI pipeline is set up using GitHub Actions, which includes:
+          A little CI pipeline is set up using
+          <a href="https://docs.github.com/en/actions" target="_blank"
+            >GitHub Actions</a
+          >, which includes:
         </p>
         <ul>
-          <li>Automated testing with pytest on each push and pull request,</li>
+          <li>
+            Automated testing with
+            <a href="https://docs.pytest.org/" target="_blank">pytest</a> on
+            each push and pull request,
+          </li>
           <li>Code formatting checks to enforce Black-style formatting,</li>
           <li>
             Pre-defined templates for issues and pull requests to guide
@@ -345,26 +561,27 @@
         </p>
         <h3>Publication</h3>
         <p>
-          DuckQuest is fully open source and hosted on GitHub, allowing anyone
-          to explore the source code, track development progress, and contribute
-          through pull requests and issue discussions. The repository includes
-          complete documentation, test tools, and a modular codebase to ease
-          onboarding for new developers or educators.
+          DuckQuest is fully open source and hosted on
+          <a
+            href="https://github.com/LeoLeman555/Board_Game_DuckQuest"
+            target="_blank"
+            >GitHub</a
+          >, allowing anyone to explore the source code, track development
+          progress, and contribute through pull requests and issue discussions.
+          The repository includes complete documentation, test tools, and a
+          modular codebase to ease onboarding for new developers or educators.
         </p>
         <p>
-          For broader accessibility, DuckQuest is also published on PyPI under
-          the name duckquest, making installation straightforward using Python’s
-          package manager.
+          For broader accessibility, DuckQuest is also published on
+          <a href="https://pypi.org/project/duckquest/" target="_blank">PyPI</a>
+          under the name duckquest, making installation straightforward using
+          Python’s package manager.
         </p>
         <p>
           All installation instructions, hardware notes, and
-          environment-specific caveats are clearly outlined in the Get the
-          Project section of the website.
-        </p>
-        <p>
-          This dual distribution approach—source-based via GitHub and
-          binary-based via PyPI—ensures that DuckQuest is both reproducible and
-          easy to deploy across educational or hobbyist environments.
+          environment-specific caveats are clearly outlined in the
+          <a href="download.html">Get the Project</a>
+          section of the website.
         </p>
       </section>
     </main>
