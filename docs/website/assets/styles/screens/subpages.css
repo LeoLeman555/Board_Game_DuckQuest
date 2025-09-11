@@ -61,6 +61,7 @@
 .note {
   font-style: italic;
 }
+
 .repo-tree-grid {
   display: grid;
   grid-template-columns: max-content 1fr;
@@ -102,4 +103,47 @@
 }
 .file {
   color: var(--blue);
+}
+
+.command-block {
+  background: #1e1e1e;
+  color: #f5f5f5;
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin: 1rem 0;
+  font-size: 14px;
+  line-height: 1.6;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow-x: auto;
+}
+
+.command-line {
+  white-space: nowrap;
+  display: block;
+}
+
+.command-line .prompt {
+  color: var(--maize);
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+.command-line .cmd {
+  color: var(--blue);
+  font-weight: bold;
+}
+
+.command-line .arg {
+  color: var(--maize);
+}
+
+.command-line .value {
+  color: var(--columbia-blue);
+}
+
+.note {
+  font-style: italic;
+  border-left: 3px solid var(--blue);
+  padding-left: 10px;
+  margin: 0.8rem 0;
 }

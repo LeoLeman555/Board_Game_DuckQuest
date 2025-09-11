@@ -23,3 +23,34 @@
   justify-content: center;
   width: 100%;
 }
+
+.link-button {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  margin: 0.3rem 0;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.link-button.primary {
+  background: #24292f;
+  color: #ffffff;
+  border: 2px solid #24292f;
+}
+
+.link-button.primary:hover {
+  color: #24292f;
+  background: var(--light-yellow);
+}
+
+.link-button.secondary {
+  background: var(--maize);
+  color: #24292f;
+  border: 2px solid var(--maize);
+}
+
+.link-button.secondary:hover {
+  background: var(--light-yellow);
+}

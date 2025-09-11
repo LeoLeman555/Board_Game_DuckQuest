@@ -31,26 +31,20 @@
       <section id="source" class="download-section">
         <h2>Source Code</h2>
         <p>DuckQuest is fully open source and available on GitHub:</p>
-        <ul>
-          <li>
-            GitHub repository:
-            <a
-              href="https://github.com/LeoLeman555/Board_Game_DuckQuest"
-              target="_blank"
-            >
-              github.com/LeoLeman555/Board_Game_DuckQuest
-            </a>
-          </li>
-          <li>
-            Latest release:
-            <a
-              href="https://github.com/LeoLeman555/Board_Game_DuckQuest/releases"
-              target="_blank"
-            >
-              Releases page
-            </a>
-          </li>
-        </ul>
+
+        <a
+          href="https://github.com/LeoLeman555/Board_Game_DuckQuest"
+          target="_blank"
+          class="link-button primary"
+          >GitHub Repository</a
+        >
+
+        <a
+          href="https://github.com/LeoLeman555/Board_Game_DuckQuest/releases"
+          target="_blank"
+          class="link-button secondary"
+          >Latest Release</a
+        >
       </section>
 
       <section id="installation" class="download-section">
@@ -62,14 +56,23 @@
           If you only want to play the game without modifying the source and
           without using physical hardware, install it directly from PyPI:
         </p>
-        <pre><code>pip install duckquest</code></pre>
+        <div class="command-block">
+          <div class="command-line">
+            <span class="prompt">$</span>
+            <span class="cmd">pip</span>
+            <span class="arg">install</span>
+            <span class="value">duckquest</span>
+          </div>
+        </div>
+
         <p>
           This will install the game along with its platform-specific
-          dependencies.<br />
-          <strong>⚠️ Note:</strong> The PyPI version is intended for UI-only
-          use. It does not support GPIO hardware, as it lacks elevated
-          permissions and conditional hardware dependencies required on
-          Raspberry Pi.
+          dependencies.
+        </p>
+        <p class="note">
+          The PyPI version is intended for UI-only use. It does not support GPIO
+          hardware as it lacks elevated permissions and conditional dependencies
+          required on Raspberry Pi.
         </p>
 
         <h3>Option 2 — Manual Clone</h3>
@@ -78,49 +81,87 @@
           Pi), or if you plan to modify the codebase, clone the project
           manually.
         </p>
-
         <ol>
           <li>
             Clone the repository:
-            <pre><code>git clone https://github.com/LeoLeman555/Board_Game_DuckQuest.git
-cd Board_Game_DuckQuest</code></pre>
+            <div class="command-block">
+              <div class="command-line">
+                <span class="prompt">$</span>
+                <span class="cmd">git</span>
+                <span class="arg">clone</span>
+                <span class="value"
+                  >https://github.com/LeoLeman555/Board_Game_DuckQuest.git</span
+                >
+              </div>
+              <div class="command-line">
+                <span class="prompt">$</span>
+                <span class="cmd">cd</span>
+                <span class="value">Board_Game_DuckQuest</span>
+              </div>
+            </div>
           </li>
           <li>
             (Recommended) Create and activate a virtual environment:
-            <pre><code>python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate</code></pre>
+            <div class="command-block">
+              <div class="command-line">
+                <span class="prompt">$</span>
+                <span class="cmd">python</span>
+                <span class="arg">-m venv</span>
+                <span class="value">venv</span>
+              </div>
+              <div class="command-line">
+                <span class="prompt">$</span>
+                <span class="cmd">source</span>
+                <span class="value">venv/bin/activate</span>
+              </div>
+            </div>
           </li>
           <li>
             Run the install script:
-            <pre><code>python install.py</code></pre>
-            <p>The <code>install.py</code> script will:</p>
-            <ul>
-              <li>Detect if you're on a Raspberry Pi.</li>
-              <li>
-                Install Raspberry Pi-specific libraries such as RPi.GPIO and
-                rpi_ws281x only when needed.
-              </li>
-              <li>Avoid installation errors on other platforms.</li>
-            </ul>
+            <div class="command-block">
+              <div class="command-line">
+                <span class="prompt">$</span>
+                <span class="cmd">python</span>
+                <span class="value">install.py</span>
+              </div>
+            </div>
+            <p class="note">
+              The
+              <a
+                href="https://github.com/LeoLeman555/Board_Game_DuckQuest/blob/main/install.py"
+                target="_blank"
+                >install.py</a
+              >
+              script will: detect if you're on a Raspberry Pi, install Raspberry
+              Pi-specific libraries such as RPi.GPIO and rpi_ws281x only when
+              needed, and avoid installation errors on other platforms.
+            </p>
           </li>
         </ol>
       </section>
 
       <section id="run" class="download-section">
         <h2>Run the Game</h2>
-
         <h3>UI-Only Mode (No Hardware)</h3>
         <p>
           If you installed DuckQuest via PyPI, you can launch the game in
           UI-only mode with:
         </p>
-        <pre><code>duck-quest</code></pre>
+        <div class="command-block">
+          <div class="command-line">
+            <span class="prompt">$</span>
+            <span class="cmd">duck-quest</span>
+          </div>
+        </div>
+
         <p>
           This mode uses simulated buttons and LEDs through a graphical
           interface. It works on Windows, macOS, and Linux, and does not require
-          GPIO hardware.<br />
-          <strong>⚠️ Note:</strong> The PyPI version does not support physical
-          hardware due to limited permissions and dependency constraints.
+          GPIO hardware.
+        </p>
+        <p class="note">
+          The PyPI version does not support physical hardware due to limited
+          permissions and dependency constraints.
         </p>
 
         <h3>Hardware Mode (Raspberry Pi with GPIO)</h3>
@@ -137,10 +178,18 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate</code></pre>
           <li>Install the game via manual clone (see above)</li>
           <li>
             Run it with elevated privileges:
-            <pre><code>sudo -E $(which python) -m duckquest.main</code></pre>
-            <p>
-              <strong>Note:</strong> sudo is required to access GPIO and PWM
-              devices on Raspberry Pi.
+            <div class="command-block">
+              <div class="command-line">
+                <span class="prompt">$</span>
+                <span class="cmd">sudo</span>
+                <span class="arg">-E</span>
+                <span class="value">$(which python)</span>
+                <span class="arg">-m</span>
+                <span class="value">duckquest.main</span>
+              </div>
+            </div>
+            <p class="note">
+              sudo is required to access GPIO and PWM devices on Raspberry Pi.
             </p>
           </li>
         </ol>
@@ -149,8 +198,12 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate</code></pre>
       <section id="license" class="download-section">
         <h2>License</h2>
         <p>
-          DuckQuest is released under the MIT License, giving you full freedom
-          to use, modify, and share the project.
+          DuckQuest is released under the
+          <a
+            href="https://github.com/LeoLeman555/Board_Game_DuckQuest/blob/main/LICENSE"
+            target="_blank"
+            >MIT license</a
+          >, giving you full freedom to use, modify, and share the project.
         </p>
       </section>
     </main>
