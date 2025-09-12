@@ -2,7 +2,7 @@
   display: inline-block;
   margin-top: -60px;
   padding: 10px 20px;
-  background-color: var(--light-blue);
+  background-color: var(--blue);
   color: white;
   text-decoration: none;
   font-weight: bold;
@@ -15,7 +15,8 @@
 }
 
 .button:hover {
-  background-color: var(--blue);
+  background-color: var(--maize);
+  color: #24292f;
 }
 
 .button-container {

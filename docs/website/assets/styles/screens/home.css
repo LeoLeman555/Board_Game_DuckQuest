@@ -38,8 +38,11 @@
 }
 
 .home-section-image img {
-  max-width: 100%;
+  max-width: 500px;
   height: auto;
+  margin: 20px 0;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px var(--shadow-dark);
 }
 
 .hero-content {
