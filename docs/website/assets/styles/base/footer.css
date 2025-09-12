@@ -47,6 +47,7 @@ footer {
 
 .footer-section ul li a:hover {
   color: var(--black);
+  text-decoration: underline;
 }
 
 .footer-bottom {
@@ -55,4 +56,31 @@ footer {
   border-top: 1px solid var(--black);
   font-size: 14px;
   color: var(--black);
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.footer-link {
+  display: flex;
+  align-items: center;
+  color: var(--black);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+.footer-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  flex-shrink: 0;
 }
