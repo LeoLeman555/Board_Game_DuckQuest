@@ -1,0 +1,48 @@
+{
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#ffe699",
+    "activityBar.background": "#ffe699",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#009f78",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "commandCenter.border": "#15202b99",
+    "sash.hoverBorder": "#ffe699",
+    "statusBar.background": "#ffd966",
+    "statusBar.foreground": "#15202b",
+    "statusBarItem.hoverBackground": "#ffcc33",
+    "statusBarItem.remoteBackground": "#ffd966",
+    "statusBarItem.remoteForeground": "#15202b",
+    "titleBar.activeBackground": "#ffd966",
+    "titleBar.activeForeground": "#15202b",
+    "titleBar.inactiveBackground": "#ffd96699",
+    "titleBar.inactiveForeground": "#15202b99"
+  },
+  "peacock.color": "#FFD966",
+  "python.analysis.extraPaths": [
+    "./src"
+  ],
+  "cSpell.words": [
+    "activebackground",
+    "borderwidth",
+    "duckquest",
+    "facecolor",
+    "figsize",
+    "fontsize",
+    "fontweight",
+    "frameon",
+    "gaierror",
+    "gpio",
+    "highlightbackground",
+    "ncol",
+    "padx",
+    "pady",
+    "showvalue",
+    "sliderrelief",
+    "tkagg",
+    "troughcolor",
+    "venv",
+    "xdata",
+    "ydata"
+  ]
+}
