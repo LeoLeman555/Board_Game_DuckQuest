@@ -13,8 +13,8 @@ footer {
 }
 
 .footer-section {
-  width: 30%;
-  min-width: 250px;
+  flex: 1 1 0;
+  max-width: 30%;
   margin-bottom: 20px;
 }
 
@@ -83,4 +83,20 @@ footer {
   height: 18px;
   margin-right: 8px;
   flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-section {
+    max-width: 100%;
+  }
+
+  .footer-links {
+    align-items: center;
+  }
 }

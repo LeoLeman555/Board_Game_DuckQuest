@@ -3,13 +3,14 @@
   border-collapse: collapse;
   margin: 2rem 0;
   text-align: center;
-  table-layout: fixed; /* ensures equal column widths */
+  table-layout: fixed;
 }
 
 .conditions-table img {
   width: 100%;
-  aspect-ratio: 4 / 3; /* ensures consistent 4:3 frame */
-  object-fit: contain; /* keeps full image visible */
+  max-width: 200px;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
   display: block;
   margin: 0 auto 0.5rem auto;
 }
@@ -26,9 +27,28 @@
 .conditions-table th,
 .conditions-table td {
   text-align: center;
+  word-wrap: break-word;
 }
 
-/* Make image captions italic inside conditions-table */
+/* Image captions */
 .conditions-table td p {
   font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .conditions-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .conditions-table td,
+  .conditions-table th {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .conditions-table img {
+    max-width: 90%;
+  }
 }

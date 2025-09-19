@@ -1,6 +1,6 @@
 .button {
   display: inline-block;
-  margin-top: -60px;
+  margin: 20px auto;
   padding: 10px 20px;
   background-color: var(--blue);
   color: white;
@@ -8,6 +8,7 @@
   font-weight: bold;
   border-radius: 5px;
   transition: background-color 0.3s ease;
+  text-align: center;
 }
 
 .button-wrapper {
@@ -23,6 +24,8 @@
   display: flex;
   justify-content: center;
   width: 100%;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .link-button {
@@ -33,6 +36,7 @@
   font-weight: 600;
   text-decoration: none;
   transition: background 0.3s ease;
+  text-align: center;
 }
 
 .link-button.primary {
@@ -54,4 +58,19 @@
 
 .link-button.secondary:hover {
   background: var(--light-yellow);
+}
+
+@media (max-width: 600px) {
+  .button,
+  .link-button {
+    width: 100%;
+    max-width: 300px;
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  .button-container {
+    flex-direction: column;
+    align-items: center;
+  }
 }
